@@ -1,2 +1,2 @@
 # PROJEKT_R
-Projekt računarstvo na 3. godini FER-a, mentor Adrian Satja Kurdija
+Projekt računarstvo u sklopu 5. smestra na FER-u
