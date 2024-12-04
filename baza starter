@@ -1,0 +1,19 @@
+CREATE TABLE baza (
+    id SERIAL PRIMARY KEY,           
+    data JSONB NOT NULL,              
+    stvoren TIMESTAMP DEFAULT NOW() 
+)
+
+CREATE USER "grafic" WITH PASSWORD '+mentor123+';
+
+GRANT ALL PRIVILEGES ON DATABASE "ProjektRGraf" TO grafic;
+
+GRANT ALL PRIVILEGES ON TABLE baza TO grafic
+
+GRANT USAGE, SELECT, UPDATE ON SEQUENCE baza_id_seq TO grafic;
+
+// napomena 
+// u conect.js u infobaza na gitu mijenjajte port (ako je vaš drugačiji)
+
+// primjer dodavanja
+INSERT INTO baza (data) VALUES ('{"Akoje":["Bkoje"],"Bkoje":["Ckoje","Akoje"],"Ckoje":["Dkoje","Bkoje"],"Dkoje":["Ckoje"], "Pkoje":[]}')
