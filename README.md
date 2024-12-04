@@ -8,12 +8,18 @@ Mentor: Adrian Satja Kurdija
 Članovi: Ivana Renić, Antonio Ružić, Dominik Mandić
 
 
-// upute za git
-// 1. koristenje
+
+
+**upute za git**
+**1. koristenje**
+
 git init
+
 git remote add origin https://github.com/dmnkmnd/PROJEKT_R.git
+
 git pull origin master
 
-// inace za dodati svoj sadrzaj push, a pull za update sa weba
+**inace za dodati svoj sadrzaj push, a pull za update sa weba**
 git push -u origin master
+
 git pull origin master
