@@ -16,6 +16,7 @@ app.use(express.urlencoded({
 
 // moj kod 
 app.use('/styles', express.static(__dirname + '/public/css'));
+app.use('/slike', express.static(__dirname + 'public/slike'));
 
 app.use(session({
     secret: 'FER WiM', 

@@ -6,8 +6,13 @@
     <title> GR/-\FF </title>
 </head>
 <body>
+    Izaberi drugi graf za analizu/prikaz
+    <br>
+    <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
+        <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
+    </form>
 
-    <%= graf %>
-
+    <br>
+    <img src="<%= graf %>" alt="Graf"/>
 </body>
 </html>

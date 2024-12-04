@@ -7,10 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
-//const { time, log } = require('console');
-
-// kdo vezan uz pozivanje pythona
-const { exec } = require('child_process');
+const { time, log } = require('console');
 
 // Konfiguracija za multer
 const upload = multer({ dest: 'uploads/' });
@@ -18,94 +15,19 @@ const upload = multer({ dest: 'uploads/' });
 // home stranica
 router.get('/', async(req, res, next) => {
     if(req.session.graf != undefined){
-        const jsonData = JSON.stringify(req.session.graf); 
-        const outputImagePath = path.join(__dirname.toString(), '../public/slike', 'graf.png');  
-
-        const pythonScriptPath = path.join(__dirname, '../public/scripts/v_obcni.py');
-
-        const command = `python "${pythonScriptPath}" "${outputImagePath}"`;
-
-        const pythonProcess = exec(command);
-
-        pythonProcess.stdin.write(jsonData);
-        pythonProcess.stdin.end();
-
-        pythonProcess.stdout.on('data', (data) => {
-            console.log(data.toString());
+        res.render('proba', {
+            graf: JSON.stringify(req.session.graf)
         });
-
-        pythonProcess.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
-
-        pythonProcess.on('close', (code) => {
-            if (code === 0) {
-                // Nakon što je Python skripta završila, šaljemo sliku kao putanju
-                res.render('proba', {
-                    graf: "/slike/graf.png"  // Putanja slike koja je generirana
-                });
-            } else {
-                console.error('Greška pri generiranju grafa.');
-                res.status(500).send('Greška pri generiranju grafa.');
-            }
-        });
-
 
     } else {
-
-        try {
-            const client = await pool.connect();
-
-            try {
-                var uneseni = await client.query('SELECT * FROM baza');
-                uneseni = uneseni.rows;
-
-            } finally {
-                client.release(); 
-            }
-        } catch (err) {
-            console.error('Greška u bazi podataka:', err);
-            return res.status(500).send('Greška u bazi podataka.');
-        }
-
         res.render('home', {
-            prikazi: JSON.stringify(uneseni)
+            
         });
     }
 
     
 });
 
-// promjena grafa koje se obrađuje
-router.post('/noviodobir', upload.single('file'), async (req, res, next) => {
-    req.session.graf = undefined;
-    res.redirect('/');
-});
-
-// odbir već unesenog grafa 
-router.post('/stariodobir', upload.single('file'), async (req, res, next) => {
-    var uneseni;
-    try {
-        const client = await pool.connect();
-
-        try {
-            uneseni = await client.query('SELECT * FROM baza WHERE id = $1', [req.body.grafid]);
-
-        } finally {
-            client.release(); 
-        }
-    } catch (err) {
-        console.error('Greška u bazi podataka:', err);
-        return res.status(500).send('Greška u bazi podataka.');
-    }
-
-    uneseni = uneseni.rows[0];
-
-    req.session.graf = uneseni.data;
-    res.redirect('/');
-});
-
-// dodavnje novog grafa kroz .txt
 router.post('/add/txt', upload.single('file'), async (req, res, next) => {
     const file = req.file;
 
@@ -142,33 +64,52 @@ router.post('/add/txt', upload.single('file'), async (req, res, next) => {
             });
         });
 
+        // Obrada linija i spremanje grafa
+        const d = new Date();
+        let idgraf = d.getTime() % 10000000;
         const graf = {};
 
         try {
             const client = await pool.connect();
 
             try {
+                // Ubacivanje grafa u bazu
+                const result = await client.query('INSERT INTO graf (email) VALUES ($1) RETURNING idgraf', [idgraf]);
+                idgraf = result.rows[0].idgraf;
+                req.session.idgraf = idgraf;
 
-                // Obrada linija
+                // Obrada linija u `for...of` petlji
                 for (const linija of lines) {
                     const nazivvrh = linija.split(";")[0];
 
                     // Dodavanje vrha u graf
                     graf[nazivvrh] = [];
 
+                    // Provjera i dodavanje vrha u bazu
+                    let idvrh1 = await client.query('SELECT idVrh FROM vrh WHERE nazivvrh=$1 and idgraf=$2', [nazivvrh, idgraf]);
+                    if (idvrh1.rows.length === 0) {
+                        idvrh1 = await client.query('INSERT INTO vrh (nazivvrh, idgraf) VALUES ($1, $2) RETURNING idVrh', [nazivvrh, idgraf]);
+                    }
+                    idvrh1 = idvrh1.rows[0].idvrh;
+
                     // Iteracija kroz susjede
                     const susjedi = linija.split(";")[1].split(",");
                     for (const susjed of susjedi) {
-                        if(susjed != ""){ // ako je slucajno prazan skup iza : kraj da ne bi stavrao probleme
-                            graf[nazivvrh].push(susjed);
+                        let idvrh2 = await client.query('SELECT idVrh FROM vrh WHERE nazivvrh=$1 and idgraf=$2', [susjed, idgraf]);
+                        if (idvrh2.rows.length === 0) {
+                            idvrh2 = await client.query('INSERT INTO vrh (nazivvrh, idgraf) VALUES ($1, $2) RETURNING idVrh', [susjed, idgraf]);
                         }
-                    }  
-                }
+                        idvrh2 = idvrh2.rows[0].idvrh;
 
-                // Dodavanje grafa u bazu
-                await client.query('INSERT INTO baza (data) VALUES ($1)', [graf]);
+                        // Dodavanje susjeda u graf
+                        graf[nazivvrh].push(susjed);
+
+                        // Dodavanje veze u bazu
+                        await client.query('INSERT INTO jeSusjed (idvrh1, idvrh2) VALUES ($1, $2);', [idvrh1, idvrh2]);
+                    }
+                }
             } finally {
-                client.release(); 
+                client.release(); // Vraća konekciju nazad u pool
             }
         } catch (err) {
             console.error('Greška u bazi podataka:', err);
@@ -185,7 +126,6 @@ router.post('/add/txt', upload.single('file'), async (req, res, next) => {
     }
 });
 
-// dodavnje novog grafa kroz .json
 router.post('/add/json', upload.single('file'), async (req, res) => {
     const file = req.file;
 
@@ -199,22 +139,12 @@ router.post('/add/json', upload.single('file'), async (req, res) => {
         const fileData = await fs.promises.readFile(filePath, 'utf8');
         const graf = JSON.parse(fileData); 
 
-        // Dodavanje grafa u bazu
-        try {
-            const client = await pool.connect();
-
-            try {
-
-                await client.query('INSERT INTO baza (data) VALUES ($1)', [graf]);
-
-            } finally {
-                client.release(); 
+        // spremanje u bazu 
+        for (const kljuc in graf) {
+            for (const elem of graf[kljuc]) { 
+                console.log(kljuc + ' : ' + elem);
             }
-        } catch (err) {
-            console.error('Greška u bazi podataka:', err);
-            return res.status(500).send('Greška u bazi podataka.');
         }
-
 
         await fs.promises.unlink(filePath);
 
@@ -236,5 +166,16 @@ router.post('/add/json', upload.single('file'), async (req, res) => {
         res.status(500).send('Greška pri obradi JSON-a.');
     }
 });
+
+
+
+/*
+SELECT * FROM vrh 
+	JOIN jesusjed on idvrh1=idvrh 
+		JOIN vrh AS vrh2 ON idvrh2=vrh2.idvrh 
+		WHERE vrh.idgraf=27
+		ORDER BY vrh.nazivVrh
+*/
+
 
 module.exports = router;
