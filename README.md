@@ -20,6 +20,7 @@ git remote add origin https://github.com/dmnkmnd/PROJEKT_R.git
 git pull origin master
 
 **inace za dodati svoj sadrzaj push, a pull za update sa weba**
+
 git push -u origin master
 
 git pull origin master
