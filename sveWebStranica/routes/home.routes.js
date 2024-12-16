@@ -102,6 +102,7 @@ router.post('/stariodobir', upload.single('file'), async (req, res, next) => {
     uneseni = uneseni.rows[0];
 
     req.session.graf = uneseni.data;
+
     res.redirect('/');
 });
 
