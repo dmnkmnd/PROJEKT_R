@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GR/-\FF </title>
+</head>
+<body>
+
+    Dijkstra
+
+    <br>
+
+    Opis forme
+
+    <br>
+
+    <form id = "parametriForm">
+        <label for="cvorA"> Čvor A: </label>
+        <select name="cvorA" id="cvorA">
+            <% Object.keys(graf).forEach(function(key) { %>
+                <option value="<%= key %>"><%= key %></option>
+            <% }); %>
+        </select>
+
+        <label for="cvorB"> Čvor B: </label>
+        <select name="cvorB" id="cvorB">
+            <% Object.keys(graf).forEach(function(key) { %>
+                <option value="<%= key %>"><%= key %></option>
+            <% }); %>
+        </select>
+
+        <label for="preskakanje"> Preskakanje: </label>
+        <select name="preskakanje" id="preskakanje">
+            <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+            <% }; %>
+        </select>
+
+        <button type="submit"> Pokreni </button>
+    </form>
+
+    <div id="rezultati"></div>
+
+    <script src="/scripts/dijkstra.js"></script>
+
+</body>
+</html>

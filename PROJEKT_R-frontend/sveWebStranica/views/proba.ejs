@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GR/-\FF </title>
+</head>
+<body>
+    Izaberi drugi graf za analizu/prikaz
+    <br>
+    <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
+        <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
+    </form>
+
+    <br>
+    <img src="<%= graf %>" alt="Graf"/>
+    <br>
+    Odaberi algoritam:
+    <br>
+    <form action="viz/dijametar" method="GET" enctype="multipart/form-data" >
+        <input class="gumb" type="submit" name="gumb" value="dijametar">
+    </form>
+    <br>
+
+</body>
+</html>
