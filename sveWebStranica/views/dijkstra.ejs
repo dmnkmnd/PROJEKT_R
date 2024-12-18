@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> dijkstrin algoritam </title>
+    <title> GR/-\FF </title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 
     <br>
 
-    <form action="/viz/dijametarPodaci" method="GET">
+    <form id = "parametriForm">
         <label for="cvorA"> Čvor A: </label>
         <select name="cvorA" id="cvorA">
             <% Object.keys(graf).forEach(function(key) { %>
@@ -39,6 +39,10 @@
 
         <button type="submit"> Pokreni </button>
     </form>
+
+    <div id="rezultati"></div>
+
+    <script src="/scripts/dijkstra.js"></script>
 
 </body>
 </html>
