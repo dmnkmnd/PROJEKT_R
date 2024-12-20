@@ -6,29 +6,39 @@
     <title> GR/-\FF </title>
 </head>
 <body>
-    Izaberi drugi graf za analizu/prikaz
+
+    Odaberi drugi graf
     <br>
     <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
         <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
     </form>
-
     <br>
-    <img src="<%= graf %>" alt="Graf"/>
+    Odaberi drugi algoritam:
     <br>
-    Odaberi algoritam:
-    <br>
-    <form action="viz/dijametar" method="GET" enctype="multipart/form-data" >
+    <form action="dijametar" method="GET" enctype="multipart/form-data" >
         <input class="gumb" type="submit" name="gumbDijametar" value="dijametar">
     </form>
     <br>
-    <form action="viz/GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
+    <form action="GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
         <input class="gumb" type="submit" name="gumbGirvanNewman" value="girvanNewman">
     </form>
     <br>
-    <form action="viz/betweennessCentrality" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbBetweennessCentrality" value="betweennessCentrality">
-    </form>
+
+    Betweenness centrality
+
     <br>
+
+    Opis forme
+
+    <br>
+
+    <form id = "parametriForm">
+        <button type="submit"> Pokreni </button>
+    </form>
+
+    <div id="rezultati"></div>
+
+    <script src="/scripts/betweennessCentrality.js"></script>
 
 </body>
 </html>

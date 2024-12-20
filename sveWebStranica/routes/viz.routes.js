@@ -37,7 +37,27 @@ router.get('/closenessCentrality', function(req, res, next){
 
 // Betweenness centrality
 router.get('/betweennessCentrality', function(req, res, next){
-    
+    res.render('betweennessCentrality');
+});
+router.get('/betweennessCentralityPodaci', function (req, res) {
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/betweennessCentrality/main.py');
+    const graf = JSON.stringify(req.session.graf);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf]);
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            fs.readdir('public/slike', (err, files) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
+                } else {
+                    const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
+                    res.json({ brSlika });
+                }
+            });
+        } else {
+            res.status(500).send({ message: 'Greška pri izvršavanju Python skripte.', code });
+        }
+    });
 });
 
 // Tarjanov algoritam
