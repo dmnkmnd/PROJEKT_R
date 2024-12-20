@@ -63,7 +63,6 @@ router.get('/dijametarPodaci', function (req, res) {
     const pythonProcess = spawn('python', [pythonScriptPath, graf, cvorA, cvorB, preskakanje]);
     pythonProcess.on('close', (code) => {
         if (code === 0) {
-            const slike = [];
             fs.readdir('public/slike', (err, files) => {
                 if (err) {
                     console.error(err);
@@ -97,7 +96,29 @@ router.get('/LouvainMetoda', function(req, res, next){
 
 // Girvan-Newman Algoritam
 router.get('/GirvanNewmanAlgoritam', function(req, res, next){
-    
+    res.render('girvanNewman', { graf: req.session.graf });
+});
+router.get('/girvanNewmanPodaci', function (req, res) {
+    const brZajednica = req.query.brZajednica;
+    const preskakanje = req.query.preskakanje;
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/girvanNewman/main.py');
+    const graf = JSON.stringify(req.session.graf);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf, brZajednica, preskakanje]);
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            fs.readdir('public/slike', (err, files) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
+                } else {
+                    const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
+                    res.json({ brSlika });
+                }
+            });
+        } else {
+            res.status(500).send({ message: 'Greška pri izvršavanju Python skripte.', code });
+        }
+    });
 });
 
 module.exports = router;
