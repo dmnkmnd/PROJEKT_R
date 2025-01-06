@@ -20,13 +20,16 @@ def v_AA (link, cvorA, cvorB):
     bridi.append((cvorA,cvorB))
     G.add_edges_from(bridi)
 
-    vriVeza, clan = algAA(link, cvorA, cvorB)
+    vriVeza, clan, graf = algAA(link, cvorA, cvorB)
 
 
     values = podSusjedi(cvorovi, clan, cvorA, cvorB)
     values = [a*0.32 + 0.08 for a in values]
     cmap = cm.get_cmap('Oranges')  
     node_colors = [cmap(value) for value in values]  
+
+    doprinos = podAuto(graf)
+    doprinos = [a - 1 for a in doprinos]
 
     # Crtanje 
     plt.figure(figsize=(8, 6)) # veličina u inčima prozora
@@ -42,7 +45,11 @@ def v_AA (link, cvorA, cvorB):
     edge_labels = {(cvorA, cvorB): vriVeza}
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
 
+    doprinos_labels = {node: f"{doprinos[i]:.2f}" for i, node in enumerate(G.nodes)}
+    shifted_pos = {node: (x, y - 0.07) for node, (x, y) in pos.items()}  # Pomak za ispis ispod
+    nx.draw_networkx_labels(G, shifted_pos, labels=doprinos_labels, font_color='blue', font_size=10)
+
     plt.axis('off')
     plt.show()
     
-v_AA("C:\\Users\domin\OneDrive\Desktop\graf.txt", "B", "E")
+v_AA("C:\\Users\domin\OneDrive\Desktop\graf.txt", "F", "A")
