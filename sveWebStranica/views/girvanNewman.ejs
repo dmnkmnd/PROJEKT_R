@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GR/-\FF </title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/home.css">
+    <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
 <body>
+    <%- include('partials/header') %>
+    <!-- dio nepotrban zbog postojanja izbornika
 
     Odaberi drugi graf
     <br>
@@ -13,45 +18,53 @@
         <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
     </form>
     <br>
-
     Odaberi drugi algoritam:
     <br>
-    <form action="dijametar" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbDijametar" value="dijametar">
+    <form action="GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
+        <input class="gumb" type="submit" name="gumbGirvanNewman" value="girvanNewman">
     </form>
     <br>
     <form action="betweennessCentrality" method="GET" enctype="multipart/form-data" >
         <input class="gumb" type="submit" name="gumbBetweennessCentrality" value="betweennessCentrality">
-    </form>
-    <br>
+    </form> 
+    -->
 
-    Girvan-Newman algoritam
-
-    <br>
-
-    Opis forme
 
     <br>
+    <div>
+        <B>Girvan-Newman algoritam</B> je algoritam koji .... (uzet opis samo iz google doksa o algoritmu)
+    </div>
 
-    <form id = "parametriForm">
-        <label for="brZajednica"> Br. zajednica: </label>
-        <select name="brZajednica" id="brZajednica">
-            <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
-                <option value="<%= i %>"><%= i %></option>
-            <% }; %>
-        </select>
+    <br>
 
-        <label for="preskakanje"> Preskakanje: </label>
-        <select name="preskakanje" id="preskakanje">
-            <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
-                <option value="<%= i %>"><%= i %></option>
-            <% }; %>
-        </select>
-
-        <button type="submit"> Pokreni </button>
-    </form>
+    <div class="forma">
+        <form id = "parametriForm">
+            <div>
+                <label for="brZajednica"> Br. zajednica: </label>
+                <select name="brZajednica" id="brZajednica">
+                    <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% }; %>
+                </select>
+            </div>
+    
+            <div>
+                <label for="preskakanje"> Preskakanje: </label>
+                <select name="preskakanje" id="preskakanje">
+                    <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% }; %>
+                </select>
+            </div>
+           
+            <div>
+                <button type="submit"> Pokreni </button>
+            </div>
+        </form>
+    </div>
 
     <script src="/scripts/girvanNewman.js"></script>
+
 
 </body>
 </html>

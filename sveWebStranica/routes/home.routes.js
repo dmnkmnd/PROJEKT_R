@@ -18,6 +18,24 @@ const upload = multer({ dest: 'uploads/' });
 // home stranica
 router.get('/', async(req, res, next) => {
     if(req.session.graf != undefined){
+
+        // za prikaz grafova u bazi
+        try {
+            const client = await pool.connect();
+
+            try {
+                var uneseni = await client.query('SELECT * FROM baza');
+                uneseni = uneseni.rows;
+
+            } finally {
+                client.release(); 
+            }
+        } catch (err) {
+            console.error('Greška u bazi podataka:', err);
+            return res.status(500).send('Greška u bazi podataka.');
+        }
+
+        // za stavranje slike grafa koji je odabran
         const jsonData = JSON.stringify(req.session.graf); 
         const outputImagePath = path.join(__dirname.toString(), '../public/slike', 'graf.png');  
 
@@ -41,8 +59,9 @@ router.get('/', async(req, res, next) => {
         pythonProcess.on('close', (code) => {
             if (code === 0) {
                 // Nakon što je Python skripta završila, šaljemo sliku kao putanju
-                res.render('proba', {
-                    graf: "/slike/graf.png"  // Putanja slike koja je generirana
+                res.render('home', {
+                    graf: "/slike/graf.png",  // Putanja slike koja je generirana
+                    prikazi: JSON.stringify(uneseni)
                 });
             } else {
                 console.error('Greška pri generiranju grafa.');
@@ -69,6 +88,7 @@ router.get('/', async(req, res, next) => {
         }
 
         res.render('home', {
+            graf: undefined,
             prikazi: JSON.stringify(uneseni)
         });
     }
@@ -78,6 +98,12 @@ router.get('/', async(req, res, next) => {
 
 // promjena grafa koje se obrađuje
 router.post('/noviodobir', upload.single('file'), async (req, res, next) => {
+    req.session.graf = undefined;
+    res.redirect('/');
+});
+
+// promjena grafa koje se obrađuje
+router.get('/noviodobir', upload.single('file'), async (req, res, next) => {
     req.session.graf = undefined;
     res.redirect('/');
 });

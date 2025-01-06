@@ -1,0 +1,46 @@
+body{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+
+.grid-area-home{
+    padding: 1% 3%;
+}
+
+.foot{
+    bottom: 0px;
+    color: gray;
+    font-size: small;
+}
+
+img {
+    width: 100%; 
+    max-width: 100vw; 
+    height: auto; 
+}
+
+.naslov{
+    padding: 10px;
+    text-align: center;
+}
+
+.forma{
+    padding: 0.5%;
+    border-radius: 3px;
+    border: 1px black solid;
+    background-color: rgb(217, 197, 146);
+}
+
+.forma1{
+    padding: 0.5%;
+    border-radius: 3px;
+    border: 1px black solid;
+    background-color: rgb(234, 215, 225);
+}
+
+.forma2{
+    padding: 0.5%;
+    border-radius: 3px;
+    border: 1px black solid;
+    background-color: rgb(146, 217, 183);
+}
