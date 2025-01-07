@@ -10,58 +10,37 @@
 </head>
 <body>
     <%- include('partials/header') %>
-    <!-- dio nepotrban zbog postojanja izbornika
-
-    Odaberi drugi graf
     <br>
-    <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
-    </form>
-    <br>
-    Odaberi drugi algoritam:
-    <br>
-    <form action="GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbGirvanNewman" value="girvanNewman">
-    </form>
-    <br>
-    <form action="betweennessCentrality" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbBetweennessCentrality" value="betweennessCentrality">
-    </form> 
-    -->
-
-
-    <br>
-    <div>
-        <B>Girvan-Newman algoritam</B> je algoritam koji .... (uzet opis samo iz google doksa o algoritmu)
+    <div class="opisAlgoritma">
+        <B>Girvan-Newman algoritam</B> je algoritam koji na zadanom grafu računa betweenness centrality za svaki brid u grafu, te potom uklanja brid sa najvećom vrijednosti betweenness centrality. Algoritam radi dok se graf ne podijeli na onoliko potpuno povezanih grafova(zajednica) koliko je korisnik zadao.<br><br>
+        Na početku vizualiziramo graf nad kojim radimo. Te u svakom sljedećem koraku vizualiziramo novu zajednicu koju smo dobili(u različitim bojama), te bridove koje smo uklonili(crveno označeni).<br><br>
+        Na kraju se vizualizira graf sa označenim zajednicama(čvorovi istih boja pripadaju istim zajednicama).<br><br>
+        Za ovaj primjer je broj zajednica četiri i graf se vizualizira u svakom koraku, ali moguće je odabrati da se koraci preskaču(npr. vizualiziramo nove zajednice nakon što imamo dvije, tri, četiri… nove zajednice).<br><br>
     </div>
 
     <br>
 
     <div class="forma">
         <form id = "parametriForm">
-            <div>
-                <label for="brZajednica"> Br. zajednica: </label>
-                <select name="brZajednica" id="brZajednica">
-                    <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
-                        <option value="<%= i %>"><%= i %></option>
-                    <% }; %>
-                </select>
-            </div>
-    
-            <div>
-                <label for="preskakanje"> Preskakanje: </label>
-                <select name="preskakanje" id="preskakanje">
-                    <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
-                        <option value="<%= i %>"><%= i %></option>
-                    <% }; %>
-                </select>
-            </div>
-           
-            <div>
-                <button type="submit"> Pokreni </button>
-            </div>
+            <label for="brZajednica"> Br. zajednica: </label>
+            <select name="brZajednica" id="brZajednica">
+                <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% }; %>
+            </select>
+            <br><br>
+            <label for="preskakanje"> Preskakanje: </label>
+            <select name="preskakanje" id="preskakanje">
+                <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% }; %>
+            </select>
+            <br><br>
+            <button type="submit"> Pokreni </button>
         </form>
     </div>
+
+    <div id="rezultati"></div>
 
     <script src="/scripts/girvanNewman.js"></script>
 

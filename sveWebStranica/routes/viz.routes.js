@@ -37,7 +37,7 @@ router.get('/closenessCentrality', function(req, res, next){
 
 // Betweenness centrality
 router.get('/betweennessCentrality', function(req, res, next){
-    res.render('betweennessCentrality');
+    res.render('betweennessCentrality', { graf: req.session.graf });
 });
 router.get('/betweennessCentralityPodaci', function (req, res) {
     const pythonScriptPath = path.join(__dirname, '../public/scripts/betweennessCentrality/main.py');

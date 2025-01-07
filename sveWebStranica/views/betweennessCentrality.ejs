@@ -4,37 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GR/-\FF </title>
+    <link rel="stylesheet" type="text/css"  href="/css/home.css">
+    <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
 <body>
-
-    Odaberi drugi graf
+    <%- include('partials/header') %>
     <br>
-    <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
-    </form>
-    <br>
-    Odaberi drugi algoritam:
-    <br>
-    <form action="dijametar" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbDijametar" value="dijametar">
-    </form>
-    <br>
-    <form action="GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbGirvanNewman" value="girvanNewman">
-    </form>
-    <br>
-
-    Betweenness centrality
+    <div class="opisAlgoritma">
+        <B>Betweenness centrality</B> je algoritam koji određuje mjeru koja procjenjuje koliko je određeni čvor u mreži ključan za usmjeravanje protoka između drugih čvorova. Temelji se na konceptu najkraćih puteva (shortest paths), tj. puteva s najmanjim brojem koraka ili najmanjim ukupnim troškom između dva čvora.<br><br>
+        Za svaki čvor u mreži, betweenness centrality se izračunava na temelju omjera broja najkraćih puteva koji prolaze kroz njega i ukupnog broja najkraćih puteva između svih parova čvorova u mreži.<br><br>
+    </div>
 
     <br>
 
-    Opis forme
-
-    <br>
-
-    <form id = "parametriForm">
-        <button type="submit"> Pokreni </button>
-    </form>
+    <div class="forma">
+        <form id = "parametriForm">
+            <button type="submit"> Pokreni </button>
+        </form>
+    </div>
 
     <div id="rezultati"></div>
 

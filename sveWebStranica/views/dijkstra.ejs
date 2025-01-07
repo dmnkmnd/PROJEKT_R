@@ -9,56 +9,45 @@
     <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
 <body>
-    <!--Odaberi drugi graf
+    <%- include('partials/header') %>
     <br>
-    <form action="/noviodobir" method="POST" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumb" value="Odaberi drugi graf"> 
-    </form>
-    <br>
-    Odaberi drugi algoritam:
-    <br>
-    <form action="GirvanNewmanAlgoritam" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbGirvanNewman" value="girvanNewman">
-    </form>
-    <br>
-    <form action="betweennessCentrality" method="GET" enctype="multipart/form-data" >
-        <input class="gumb" type="submit" name="gumbBetweennessCentrality" value="betweennessCentrality">
-    </form>
-    <br> -->
-
-
-    Dijkstra
+    <div class="opisAlgoritma">
+        <B>Dijametar</B> je algoritam koji računa najkraću udaljenost od početnog do završnog čvora. U našem slučaju udaljenosti povezanih čvorova su 1 jer algoritam u našem slučaju računa najkraći put od jednog do drugog korisnika u mreži. Pošto su udaljenosti 1 velika je mogućnost da ćemo imati više najkraćih udaljenosti (alternativne rute), pa vizualiziramo sve puteve s najkraćom udaljenosti. Također završni čvor može biti nedostižan pa i to prepoznajemo u programu(funkcija kao udaljenost vraća -1).<br><br>
+        Moguće je i preskakati korake. Npr. možemo vizualizirati algoritam tako da prikazuje svaki peti korak.<br><br>
+        Vodimo listu posjećenih i listu neposjećenih čvorova. U listi posjećenih je na početku samo početni čvor i njegova udaljenost je 0 dok su u listi neposjećenih čvorova svi ostali čvorovi sa udaljenošću beskonačno.<br><br>
+        Odredimo sve susjedne čvorove početnog čvora i ažuriramo im udaljenosti (u listi neposjećenih).<br><br>
+        Iz liste neposjećenih čvorova odaberemo čvor s najmanjom udaljenosti i pohranimo ga u listu posjećenih čvorova. Za novoodabrani čvor opet odredimo sve susjede i ažuriramo im udaljenosti u listi posjećenih čvorova (ali samo ako je nova udaljenost manja od prijašnje). Algoritam ponavljamo sve dok ne posjetimo sve čvorove koje možemo posjetiti iz početnog čvora.<br><br>
+        Isto tako za svaki čvor pamtimo sve čvorove iz kojih se u taj čvor dolazi najkraćim putem (kako bi na kraju mogli rekonstruirati sve najkraće puteve).<br><br>
+    </div>
 
     <br>
 
-    Opis forme
-
-    <br>
-
-    <form id = "parametriForm">
-        <label for="cvorA"> Čvor A: </label>
-        <select name="cvorA" id="cvorA">
-            <% Object.keys(graf).forEach(function(key) { %>
-                <option value="<%= key %>"><%= key %></option>
-            <% }); %>
-        </select>
-
-        <label for="cvorB"> Čvor B: </label>
-        <select name="cvorB" id="cvorB">
-            <% Object.keys(graf).forEach(function(key) { %>
-                <option value="<%= key %>"><%= key %></option>
-            <% }); %>
-        </select>
-
-        <label for="preskakanje"> Preskakanje: </label>
-        <select name="preskakanje" id="preskakanje">
-            <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
-                <option value="<%= i %>"><%= i %></option>
-            <% }; %>
-        </select>
-
-        <button type="submit"> Pokreni </button>
-    </form>
+    <div class="forma">
+        <form id = "parametriForm">
+            <label for="cvorA"> Čvor A: </label>
+            <select name="cvorA" id="cvorA">
+                <% Object.keys(graf).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= key %></option>
+                <% }); %>
+            </select>
+            <br><br>
+            <label for="cvorB"> Čvor B: </label>
+            <select name="cvorB" id="cvorB">
+                <% Object.keys(graf).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= key %></option>
+                <% }); %>
+            </select>
+            <br><br>
+            <label for="preskakanje"> Preskakanje: </label>
+            <select name="preskakanje" id="preskakanje">
+                <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% }; %>
+            </select>
+            <br><br>
+            <button type="submit"> Pokreni </button>
+        </form>
+    </div>
 
     <div id="rezultati"></div>
 
