@@ -67,7 +67,29 @@ router.get('/TarjanovAlgoritam', function(req, res, next){
 
 // Adamec-Adar indeks
 router.get('/AdamecAdarIndex', function(req, res, next){
-    
+    res.render('adamicAdar', { graf: req.session.graf });
+});
+router.get('/AdamecAdarIndexPodaci', function(req, res){
+    const cvorA = req.query.cvorA;
+    const cvorB = req.query.cvorB;
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/adamicAdar/main.py');
+    const graf = JSON.stringify(req.session.graf);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf, cvorA, cvorB]);
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            fs.readdir('public/slike', (err, files) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
+                } else {
+                    const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
+                    res.json({ brSlika });
+                }
+            });
+        } else {
+            res.status(500).send({ message: 'Greška pri izvršavanju Python skripte.', code });
+        }
+    });
 });
 
 // dijametar
