@@ -48,5 +48,5 @@ def v_AA (graf, cvorA, cvorB):
     shifted_pos = {node: (x, y - 0.07) for node, (x, y) in pos.items()}  # Pomak za ispis ispod
     nx.draw_networkx_labels(G, shifted_pos, labels=doprinos_labels, font_color='blue', font_size=10)
 
-    plt.savefig('public/slike/slika2.png')
+    plt.savefig('public/slike/slika1.png')
     plt.close()
