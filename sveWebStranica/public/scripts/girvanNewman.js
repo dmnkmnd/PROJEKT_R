@@ -9,8 +9,9 @@ window.addEventListener('unload', function() {
 });
 document.getElementById('parametriForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    if(document.getElementById('rezultati'))
-        document.getElementById('rezultati').remove();
+    document.getElementById('nazadBtn').style.display = 'inline';
+    document.getElementById('naprijedBtn').style.display = 'inline';
+    document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
     brojacSlika = 1;
     const brZajednica = document.getElementById('brZajednica').value;
@@ -18,51 +19,58 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     fetch('/viz/girvanNewmanPodaci?brZajednica=' + brZajednica + '&preskakanje=' + preskakanje)
         .then(response => response.json())
         .then(data => {
-            const rezultatiDiv = document.createElement('div');
-            rezultatiDiv.id = 'rezultati';
-            rezultatiDiv.innerHTML = '';
             if (data.brSlika > 0) {
                 const slika = document.getElementById("trSlikaAlg");
                 if(slika)
                     slika.remove();
-                const nazadBtn = document.createElement('button');
-                nazadBtn.textContent = 'Nazad';
-                nazadBtn.id = 'nazadBtn';
-                nazadBtn.addEventListener('click', function () {
+                
+                const nazadBtn = document.getElementById('nazadBtn');
+                const naprijedBtn = document.getElementById('naprijedBtn');
+
+                const nazadClickHandler = function () {
+                    document.getElementById('naprijedBtn').style.display = 'inline';
                     if(brojacSlika > 1) {
                         document.getElementById("trSlikaAlg").remove();
                         brojacSlika--;
                         const trSlika = document.createElement('img');
                         trSlika.id = 'trSlikaAlg';
                         trSlika.src = '../slike/slika' + brojacSlika + '.png?' + new Date().getTime();
-                        trSlika.style.width = '850px';
-                        rezultatiDiv.appendChild(trSlika);
+                        trSlika.style.width = '100%';
+                        document.getElementById("rezultatiSlika").appendChild(trSlika);
                     }
-                });
-                rezultatiDiv.appendChild(nazadBtn);
-                const naprijedBtn = document.createElement('button');
-                naprijedBtn.textContent = 'Naprijed';
-                naprijedBtn.id = 'naprijedBtn';
-                naprijedBtn.addEventListener('click', function () {
+                    if(brojacSlika == 1)
+                        document.getElementById('nazadBtn').style.display = 'none';
+                };
+
+                const naprijedClickHandler = function () {
+                    document.getElementById('nazadBtn').style.display = 'inline';
                     if(brojacSlika < data.brSlika) {
                         document.getElementById("trSlikaAlg").remove();
                         brojacSlika++;
                         const trSlika = document.createElement('img');
                         trSlika.id = 'trSlikaAlg';
                         trSlika.src = '../slike/slika' + brojacSlika + '.png?' + new Date().getTime();
-                        trSlika.style.width = '850px';
-                        rezultatiDiv.appendChild(trSlika);
+                        trSlika.style.width = '100%';
+                        document.getElementById("rezultatiSlika").appendChild(trSlika);
                     }
-                });
-                rezultatiDiv.appendChild(naprijedBtn);
+                    if(brojacSlika == data.brSlika)
+                        document.getElementById('naprijedBtn').style.display = 'none';
+                };
+
+                nazadBtn.replaceWith(nazadBtn.cloneNode(true));
+                naprijedBtn.replaceWith(naprijedBtn.cloneNode(true));
+
+                document.getElementById('nazadBtn').addEventListener('click', nazadClickHandler);
+                document.getElementById('naprijedBtn').addEventListener('click', naprijedClickHandler);
+
                 const img = document.createElement('img');
                 img.id = 'trSlikaAlg';
                 img.src = '../slike/slika1.png?' + new Date().getTime();
-                img.style.width = '850px';
-                rezultatiDiv.appendChild(img);
-                document.body.appendChild(rezultatiDiv);
-            } else
-                rezultatiDiv.innerHTML = '<p>Nema rezultata za prikaz.</p>';
+                img.style.width = '100%';
+                document.getElementById("rezultatiSlika").appendChild(img);
+                document.getElementById('nazadBtn').style.display = 'none';
+                document.getElementById('rezultati').style.display = 'flex';
+            }
     })
     .catch(err => console.error('Greška:', err));
 });

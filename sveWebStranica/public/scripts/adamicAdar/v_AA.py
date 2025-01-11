@@ -8,8 +8,7 @@ import matplotlib.cm as cm
 import numpy as np
 
 
-def v_AA (link, cvorA, cvorB):
-    graf = unos(link)
+def v_AA (graf, cvorA, cvorB):
     G = nx.Graph()  
 
     cvorovi = list(graf.keys())
@@ -20,7 +19,7 @@ def v_AA (link, cvorA, cvorB):
     bridi.append((cvorA,cvorB))
     G.add_edges_from(bridi)
 
-    vriVeza, clan, graf = algAA(link, cvorA, cvorB)
+    vriVeza, clan, graf = algAA(graf, cvorA, cvorB)
 
 
     values = podSusjedi(cvorovi, clan, cvorA, cvorB)
@@ -49,7 +48,5 @@ def v_AA (link, cvorA, cvorB):
     shifted_pos = {node: (x, y - 0.07) for node, (x, y) in pos.items()}  # Pomak za ispis ispod
     nx.draw_networkx_labels(G, shifted_pos, labels=doprinos_labels, font_color='blue', font_size=10)
 
-    plt.axis('off')
-    plt.show()
-    
-v_AA("C:\\Users\domin\OneDrive\Desktop\graf.txt", "F", "A")
+    plt.savefig('public/slike/slika1.png')
+    plt.close()

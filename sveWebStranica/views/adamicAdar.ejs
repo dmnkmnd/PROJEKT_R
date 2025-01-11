@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GR/-\FF </title>
+
     <link rel="stylesheet" type="text/css"  href="/css/home.css">
     <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
@@ -11,14 +12,27 @@
     <%- include('partials/header') %>
     <br>
     <div class="opisAlgoritma">
-        <B>Betweenness centrality</B> je algoritam koji određuje mjeru koja procjenjuje koliko je određeni čvor u mreži ključan za usmjeravanje protoka između drugih čvorova. Temelji se na konceptu najkraćih puteva (shortest paths), tj. puteva s najmanjim brojem koraka ili najmanjim ukupnim troškom između dva čvora.<br><br>
-        Za svaki čvor u mreži, betweenness centrality se izračunava na temelju omjera broja najkraćih puteva koji prolaze kroz njega i ukupnog broja najkraćih puteva između svih parova čvorova u mreži.<br><br>
+        <B>Adamec-Adar index</B> je algoritam koji ....
     </div>
 
     <br>
 
     <div class="forma">
         <form id = "parametriForm">
+            <label for="cvorA"> Čvor A: </label>
+            <select name="cvorA" id="cvorA">
+                <% Object.keys(graf).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= key %></option>
+                <% }); %>
+            </select>
+            <br><br>
+            <label for="cvorB"> Čvor B: </label>
+            <select name="cvorB" id="cvorB">
+                <% Object.keys(graf).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= key %></option>
+                <% }); %>
+            </select>
+            <br><br>
             <button type="submit"> Pokreni </button>
         </form>
     </div>
@@ -33,7 +47,7 @@
 
     <%- include('partials/footer') %>
 
-    <script src="/scripts/betweennessCentrality.js"></script>
+    <script src="/scripts/adamicAdar.js"></script>
 
 </body>
 </html>

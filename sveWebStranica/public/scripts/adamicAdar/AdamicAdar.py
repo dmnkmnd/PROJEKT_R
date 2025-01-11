@@ -1,8 +1,7 @@
 from read import unos
 from math import log10 
 
-def algAA(lokacija, cvor1, cvor2):
-    rj=unos(lokacija)
+def algAA(rj, cvor1, cvor2):
     if(cvor1 in rj.get(cvor2).u or cvor1 in rj.get(cvor2).iz or cvor2 in rj.get(cvor1).u or cvor2 in rj.get(cvor1).iz ):
         #Već su povezani stoga predikacja nema smisla!
         return "CVOROVI POVEZANI", [], rj

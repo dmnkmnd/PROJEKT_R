@@ -24,7 +24,13 @@ img {
     text-align: center;
 }
 
+.opisAlgoritma{
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
 .forma{
+    width: fit-content;
     padding: 0.5%;
     border-radius: 3px;
     border: 1px black solid;
@@ -33,6 +39,7 @@ img {
 
 .forma1{
     padding: 0.5%;
+    width: fit-content;
     border-radius: 3px;
     border: 1px black solid;
     background-color: rgb(234, 215, 225);
@@ -41,6 +48,52 @@ img {
 .forma2{
     padding: 0.5%;
     border-radius: 3px;
+    width: fit-content;
     border: 1px black solid;
     background-color: rgb(146, 217, 183);
+}
+
+.rezultatiDiv {
+    display: none;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.centar {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 800px;
+    background-color: rgba(80, 202, 242, 0.591);
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.rezultatiSlikaDiv img {
+    flex: 1;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.rezultatiGumbiDiv {
+    margin-top: 10px;
+}
+
+.rezultatiGumbiDiv button {
+    background-color: rgb(217, 197, 146);
+    color: black;
+    font-size: medium;
+    font-weight: bolder;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rezultatiGumbiDiv button:hover {
+    opacity: 70%;
 }

@@ -10,7 +10,9 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     e.preventDefault();
     document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
-    fetch('/viz/betweennessCentralityPodaci')
+    const cvorA = document.getElementById('cvorA').value;
+    const cvorB = document.getElementById('cvorB').value;
+    fetch('/viz/AdamecAdarIndexPodaci?cvorA=' + cvorA + '&cvorB=' + cvorB)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {
