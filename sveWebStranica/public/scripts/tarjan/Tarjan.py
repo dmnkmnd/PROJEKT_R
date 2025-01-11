@@ -31,8 +31,8 @@ def TarjanRek(cvor, graf, index, stog):
     return index
 
 
-def TarjanAlg(adresa):
-    rj = unosTar(adresa)
+def TarjanAlg(jsonGRAF):
+    rj = unosTar(jsonGRAF)
     index = 0
     stog = []
     

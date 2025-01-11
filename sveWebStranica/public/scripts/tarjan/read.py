@@ -25,11 +25,7 @@ def unos (dataJSON):
 
 
 
-def unosTar (file):
-    try:
-        dataJSON = json.load(file)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Neispravan JSON format: {e}")
+def unosTar (dataJSON):
     
     rj = {}
     
