@@ -133,7 +133,27 @@ router.get('/PageRankAlgoritam', function(req, res, next){
 
 // Louvain Method
 router.get('/LouvainMetoda', function(req, res, next){
-    
+    res.render('louvain', { graf: req.session.graf });
+});
+router.get('/LouvainMetodaPodaci', function(req, res, next){
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/louvain/main.py');
+    const graf = JSON.stringify(req.session.graf);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf]);
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            fs.readdir('public/slike', (err, files) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
+                } else {
+                    const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
+                    res.json({ brSlika });
+                }
+            });
+        } else {
+            res.status(500).send({ message: 'Greška pri izvršavanju Python skripte.', code });
+        }
+    });
 });
 
 // Girvan-Newman Algoritam

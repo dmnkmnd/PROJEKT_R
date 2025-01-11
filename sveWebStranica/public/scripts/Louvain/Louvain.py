@@ -2,18 +2,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from community import community_louvain
 
-def parse_input_from_file(file_path):
-    """Parse input text from a file to create a directed graph."""
-    G = nx.DiGraph()
-    with open(file_path, 'r') as file:
-        for line in file:
-            node, neighbors = line.strip().split(";")
-            neighbors = neighbors.split(",") if neighbors else []
-            for neighbor in neighbors:
-                G.add_edge(node.strip(), neighbor.strip())
-    return G
+def unos(g):
+    GRAF = nx.DiGraph()
+    for node, neighbors in g.items():
+        for neighbor in neighbors:
+            GRAF.add_edge(node, neighbor)
+    return GRAF
 
-def draw_graph(G, communities=None, title="Graph Visualization", pos=None):
+def draw_graph(G, communities=None, title="Graph Visualization", pos=None, brSlika=0):
     """Draw the graph with optional community coloring."""
     plt.figure(figsize=(8, 6))
     pos = pos or nx.spring_layout(G, seed=42)
@@ -24,8 +20,8 @@ def draw_graph(G, communities=None, title="Graph Visualization", pos=None):
     else:
         nx.draw(G, pos, with_labels=True, node_size=500, font_size=10, font_weight="bold")
     
-    plt.title(title)
-    plt.show()
+    plt.savefig('public/slike/slika' + str(brSlika) + '.png')
+    plt.close()
 
 def louvain_algorithm_steps(G):
     """Apply Louvain algorithm step by step and visualize each step."""
@@ -33,11 +29,11 @@ def louvain_algorithm_steps(G):
 
     # Step 1: Initial partitioning (each node is its own community)
     initial_partition = {node: i for i, node in enumerate(G.nodes())}
-    draw_graph(G, initial_partition, title="Initial Partition: Each Node in Its Own Community", pos=pos)
+    draw_graph(G, initial_partition, title="Initial Partition: Each Node in Its Own Community", pos=pos, brSlika=2)
 
     # Louvain Method: Optimize modularity
     partition = community_louvain.best_partition(G.to_undirected(), resolution=1.0)
-    draw_graph(G, partition, title="Initial Louvain Partition", pos=pos)
+    draw_graph(G, partition, title="Initial Louvain Partition", pos=pos, brSlika=3)
 
     modularity = community_louvain.modularity(partition, G.to_undirected())
     print(f"Initial modularity: {modularity:.4f}")
@@ -47,23 +43,7 @@ def louvain_algorithm_steps(G):
         partition = community_louvain.best_partition(G.to_undirected(), resolution=1.0)
         modularity = community_louvain.modularity(partition, G.to_undirected())
         print(f"Step {i} modularity: {modularity:.4f}")
-        draw_graph(G, partition, title=f"Step {i}: Louvain Partition", pos=pos)
+        draw_graph(G, partition, title=f"Step {i}: Louvain Partition", pos=pos, brSlika=(2+i))
 
     print("Final partition:", partition)
     return partition
-
-
-if __name__ == "__main__":
-    # File path for graph data
-    file_path = "graph.txt"
-
-    # Parse input and create graph
-    G = parse_input_from_file(file_path)
-
-    # Visualize initial graph
-    draw_graph(G, title="Initial Graph")
-
-    # Apply Louvain algorithm and visualize steps
-    louvain_algorithm_steps(G)
-
-
