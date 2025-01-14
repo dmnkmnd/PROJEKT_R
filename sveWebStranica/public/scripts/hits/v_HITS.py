@@ -7,12 +7,12 @@ import networkx as nx
 import matplotlib.cm as cm
 import numpy as np
 
-def graf_HITS (link, iteracija):
+def graf_HITS (dataJSON, iteracija):
     if(iteracija == 0):
-        graf = unos(link)
+        graf = unos(dataJSON)
 
     else:
-        graf = algHits(link, iteracija)
+        graf = algHits(dataJSON, iteracija)
     
     
     # vizualizacija
@@ -41,6 +41,5 @@ def graf_HITS (link, iteracija):
         node_color=node_colors,  # Boje iz kolormapa
         edge_color='green'
     )
-    plt.show()
-
-graf_HITS("C:\\Users\domin\OneDrive\Desktop\graf.txt", 100)
+    plt.savefig('public/slike/slika1.png')
+    plt.close()

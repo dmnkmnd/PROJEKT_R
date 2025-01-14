@@ -163,9 +163,10 @@ router.get('/HITSAlgoritam', function(req, res, next){
     res.render('hits', { graf: req.session.graf });
 });
 router.get('/HITSAlgoritamPodaci', function(req, res, next){
+    const iteracija = req.query.iteracija;
     const pythonScriptPath = path.join(__dirname, '../public/scripts/hits/main.py');
     const graf = JSON.stringify(req.session.graf);
-    const pythonProcess = spawn('python', [pythonScriptPath, graf]);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf, iteracija]);
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             fs.readdir('public/slike', (err, files) => {

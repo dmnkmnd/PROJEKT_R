@@ -1,8 +1,8 @@
 from read import unos
 from math import sqrt
 
-def algHits(lokacija, iter):
-    rj=unos(lokacija)
+def algHits(dataJSON, iter):
+    rj=unos(dataJSON)
 
     for i in range(iter):
         uk_aut = 0.0
@@ -45,5 +45,5 @@ def algHits(lokacija, iter):
     
 
 
-algHits("C:\\Users\domin\OneDrive\Desktop\graf.txt", 3)
+#algHits("C:\\Users\domin\OneDrive\Desktop\graf.txt", 3)
 
