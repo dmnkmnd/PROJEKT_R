@@ -1,6 +1,7 @@
 body{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 20px;
+
 }
 
 .grid-area-home{
@@ -96,4 +97,9 @@ img {
 
 .rezultatiGumbiDiv button:hover {
     opacity: 70%;
+}
+
+.sredina{
+    margin: 0% 5%;
+    place-items: center;
 }

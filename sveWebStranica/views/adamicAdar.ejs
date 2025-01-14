@@ -10,44 +10,58 @@
 </head>
 <body>
     <%- include('partials/header') %>
-    <br>
-    <div class="opisAlgoritma">
-        <B>Adamec-Adar index</B> je algoritam koji ....
-    </div>
+    <div class="sredina">
+            <br>
+        <div class="opisAlgoritma">
+            <B>Adamec-Adar index</B> je algoritam zasnovan na analizi neusmjerenih grafova i razumjenvanju ljudskog ponašanja.
+            <hr>
+            Mjera koja predviđa kolika je vjerojatnost da će dva trenutno nepovezana čvora, nekad u budućnosti povezati.
+            <br>
+            <br>
+            Promatra koliki je skup zajedničkih susjeda. 
+            Veću važnost daje susjedima koji imaju manji broj veza jer se pretpostavlja da su ti susjedi “izbirljiviji” u stvaranju veza s drugim čvorovima. 
+            Stoga zbog tog svojstva imaju čvršće veze i vjerojatnije je da će okupiti i povezati svoje prijatelje u društvo (tj. upoznavati prijatelje s prijateljima)
+            <br>
+            <br>
+            <B>FORMULA: AA(x, y) = Σ (1 / log(|N(u)|))</B>, gdje je u ∈ N(x) ∩ N(y)
 
-    <br>
+        </div>
 
-    <div class="forma">
-        <form id = "parametriForm">
-            <label for="cvorA"> Čvor A: </label>
-            <select name="cvorA" id="cvorA">
-                <% Object.keys(graf).forEach(function(key) { %>
-                    <option value="<%= key %>"><%= key %></option>
-                <% }); %>
-            </select>
-            <br><br>
-            <label for="cvorB"> Čvor B: </label>
-            <select name="cvorB" id="cvorB">
-                <% Object.keys(graf).forEach(function(key) { %>
-                    <option value="<%= key %>"><%= key %></option>
-                <% }); %>
-            </select>
-            <br><br>
-            <button type="submit"> Pokreni </button>
-        </form>
-    </div>
+        <br>
 
-    <div class="rezultatiDiv" id="rezultati">
-        <div class="centar">
-            <div class="rezultatiSlikaDiv" id="rezultatiSlika">
-                <img id="trSlikaAlg">
+        <div class="forma">
+            <form id = "parametriForm">
+                <label for="cvorA"> Čvor A: </label>
+                <select name="cvorA" id="cvorA">
+                    <% Object.keys(graf).forEach(function(key) { %>
+                        <option value="<%= key %>"><%= key %></option>
+                    <% }); %>
+                </select>
+                <br><br>
+                <label for="cvorB"> Čvor B: </label>
+                <select name="cvorB" id="cvorB">
+                    <% Object.keys(graf).forEach(function(key) { %>
+                        <option value="<%= key %>"><%= key %></option>
+                    <% }); %>
+                </select>
+                <br><br>
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
+
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
             </div>
         </div>
+
+        <%- include('partials/footer') %>
+
+        <script src="/scripts/adamicAdar.js"></script>
     </div>
 
-    <%- include('partials/footer') %>
-
-    <script src="/scripts/adamicAdar.js"></script>
 
 </body>
 </html>

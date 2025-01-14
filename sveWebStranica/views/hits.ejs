@@ -10,37 +10,51 @@
 </head>
 <body>
     <%- include('partials/header') %>
-    <br>
-    <div class="opisAlgoritma">
-        <B>Hits algoritam</B> je algoritam koji ....
-    </div>
 
-    <br>
+    <div class="sredina">
 
-    <div class="forma">
-        <form id = "parametriForm">
-            <label for="iteracija"> Iteracija: </label>
-            <select name="iteracija" id="iteracija">
-                <% for(let i = 1; i <= 100; i++) { %>
-                    <option value="<%= i %>"><%= i %></option>
-                <% }; %>
-            </select>
-            <br><br>
-            <button type="submit"> Pokreni </button>
-        </form>
-    </div>
+        <br>
+        <div class="opisAlgoritma">
+            <B>Hits algoritam (Hyperlink - Induced Topic Search) </B> je algoritam koji vizualizira autoritete i hubove.
+            <br>
+            <hr>
+            -> AUTORITET = čvor koji je u grafu važan (puno čvorova pokazuje na njega) => u vizualizaciji veličina čvorova
+            <br>
+            -> HUB = čvor koji pokazuje na čvorove autoritete => u vizualizaciji intenizet boje čvorova     
+            <br>
+            <br>
+            Algoritam radi iterativno, a s vremenom se razlika između čvorova (koliki su hub ili autoritet) značajno mijnja i profiliraju se čvorovi koji su značajni.
 
-    <div class="rezultatiDiv" id="rezultati">
-        <div class="centar">
-            <div class="rezultatiSlikaDiv" id="rezultatiSlika">
-                <img id="trSlikaAlg">
+        </div>
+
+        <br>
+
+        <div class="forma">
+            <form id = "parametriForm">
+                <label for="iteracija"> Iteracija: </label>
+                <select name="iteracija" id="iteracija">
+                    <% for(let i = 1; i <= 100; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% }; %>
+                </select>
+                <br><br>
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
+
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
             </div>
         </div>
+
+        <%- include('partials/footer') %>
+
+        <script src="/scripts/hits.js"></script>
     </div>
-
-    <%- include('partials/footer') %>
-
-    <script src="/scripts/hits.js"></script>
+    
 
 </body>
 </html>

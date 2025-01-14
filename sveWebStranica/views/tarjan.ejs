@@ -4,35 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GR/-\FF </title>
+
     <link rel="stylesheet" type="text/css"  href="/css/home.css">
     <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <br>
-    <div class="opisAlgoritma">
-        <B>Tarjanov algoritam</B> je algoritam koji ....
-    </div>
-
-    <br>
-
-    <div class="forma">
-        <form id = "parametriForm">
-            <button type="submit"> Pokreni </button>
-        </form>
-    </div>
-
-    <div class="rezultatiDiv" id="rezultati">
-        <div class="centar">
-            <div class="rezultatiSlikaDiv" id="rezultatiSlika">
-                <img id="trSlikaAlg">
+    <div class="sredina">
+            <br>
+        <div class="opisAlgoritma">
+            <B>Tarjanov algoritam</B> je algoritam koji pronalazi povezane podgrafove unutar usmjerenih grafova
+            <br>
+            <hr>
+            Radi principom obilaska stabla u dubinu => rekurzivnim pozivom bilježi dvije vrijednosti: 
+            <br>
+             INDEX = redni broj čvora u obilasku 
+            <br>
+             LOWLINK = najniži redni broj čvora do kojeg ga vodi put (kružna staza na kojoj su oba čvora)
+            <br>
+            Ako je LOWLINK == INDEX to znači da se radi o elementu koji je dio čvrsto povezanog grafa. 
+            
+        </div>
+    
+        <br>
+    
+        <div class="forma">
+            <form id = "parametriForm">
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
+    
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
             </div>
         </div>
+    
+        <%- include('partials/footer') %>
+        <script src="/scripts/tarjan.js"></script>
     </div>
-
-    <%- include('partials/footer') %>
-
-    <script src="/scripts/tarjan.js"></script>
 
 </body>
 </html>
