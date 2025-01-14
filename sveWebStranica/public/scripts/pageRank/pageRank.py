@@ -12,7 +12,14 @@ def parse_input_from_file(file_path):
                 G.add_edge(node.strip(), neighbor.strip())
     return G
 
-def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None):
+def unos(g):
+    GRAF = nx.DiGraph()
+    for node, neighbors in g.items():
+        for neighbor in neighbors:
+            GRAF.add_edge(node, neighbor)
+    return GRAF
+
+def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None, brSlika=0):
     """Draw the graph with optional node coloring based on scores."""
     plt.figure(figsize=(8, 6))
     pos = pos or nx.spring_layout(G, seed=42)
@@ -26,10 +33,10 @@ def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None):
     else:
         nx.draw(G, pos, with_labels=True, node_size=500, font_size=10, font_weight="bold")
 
-    plt.title(title)
-    plt.show()
+    plt.savefig('public/slike/slika' + str(brSlika) + '.png')
+    plt.close()
 
-def visualize_pagerank_steps(G, alpha=0.85, max_iter=100, tol=1.0e-6, step_interval=5):
+def visualize_pagerank_steps(G, alpha=0.85, max_iter=100, tol=1.0e-6, step_interval=5, brSlika=0):
     """Visualize the iterative steps of the PageRank algorithm with reduced visualizations."""
     pos = nx.spring_layout(G, seed=42)
     scores = {node: 1 / G.number_of_nodes() for node in G.nodes()}  # Initialize scores
@@ -46,21 +53,25 @@ def visualize_pagerank_steps(G, alpha=0.85, max_iter=100, tol=1.0e-6, step_inter
 
         # Visualize every `step_interval` steps
         if iteration % step_interval == 0 or diff < tol:
-            draw_graph(G, node_scores=scores, title=f"PageRank Step {iteration + 1}", pos=pos)
+            draw_graph(G, node_scores=scores, title=f"PageRank Step {iteration + 1}", pos=pos, brSlika=brSlika)
+            brSlika += 1
 
         if diff < tol:
             print(f"Converged after {iteration + 1} iterations.")
             break
+    
+    return brSlika
 
-def calculate_and_visualize_pagerank(G):
+def calculate_and_visualize_pagerank(G, brSlika=0):
     """Calculate PageRank and visualize the graph with scores."""
     pagerank_scores = nx.pagerank(G)
     print("PageRank Scores:")
     for node, score in pagerank_scores.items():
         print(f"{node}: {score:.4f}")
 
-    draw_graph(G, node_scores=pagerank_scores, title="PageRank Visualization")
+    draw_graph(G, node_scores=pagerank_scores, title="PageRank Visualization", brSlika=brSlika)
 
+'''
 if __name__ == "__main__":
     # File path for graph data
     file_path = "graph2.txt"
@@ -76,4 +87,4 @@ if __name__ == "__main__":
 
     # Calculate and visualize final PageRank
     calculate_and_visualize_pagerank(G)
-
+'''

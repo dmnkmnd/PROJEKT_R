@@ -19,6 +19,13 @@
 
     <div class="forma">
         <form id = "parametriForm">
+            <label for="preskakanje"> Preskakanje: </label>
+            <select name="preskakanje" id="preskakanje">
+                <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                    <option value="<%= i %>"><%= i %></option>
+                <% }; %>
+            </select>
+            <br><br>
             <button type="submit"> Pokreni </button>
         </form>
     </div>

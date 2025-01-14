@@ -20,7 +20,8 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
     brojacSlika = 1;
-    fetch('/viz/LouvainMetodaPodaci')
+    const preskakanje = document.getElementById('preskakanje').value;
+    fetch('/viz/PageRankAlgoritamPodaci?preskakanje=' + preskakanje)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {

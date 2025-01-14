@@ -188,9 +188,10 @@ router.get('/PageRankAlgoritam', function(req, res, next){
     res.render('pageRank', { graf: req.session.graf });
 });
 router.get('/PageRankAlgoritamPodaci', function(req, res, next){
+    const preskakanje = req.query.preskakanje;
     const pythonScriptPath = path.join(__dirname, '../public/scripts/pageRank/main.py');
     const graf = JSON.stringify(req.session.graf);
-    const pythonProcess = spawn('python', [pythonScriptPath, graf]);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf, preskakanje]);
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             fs.readdir('public/slike', (err, files) => {
