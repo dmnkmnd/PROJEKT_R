@@ -1,9 +1,15 @@
 var brojacSlika = 1;
 window.onload = function() {
+    document.getElementById('nazadBtn').style.display = 'inline';
+    document.getElementById('naprijedBtn').style.display = 'inline';
+    document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
     brojacSlika = 1;
 };
 window.addEventListener('unload', function() {
+    document.getElementById('nazadBtn').style.display = 'inline';
+    document.getElementById('naprijedBtn').style.display = 'inline';
+    document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
     brojacSlika = 1;
 });
@@ -14,16 +20,15 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
     brojacSlika = 1;
-    const brZajednica = document.getElementById('brZajednica').value;
     const preskakanje = document.getElementById('preskakanje').value;
-    fetch('/viz/girvanNewmanPodaci?brZajednica=' + brZajednica + '&preskakanje=' + preskakanje)
+    fetch('/viz/PageRankAlgoritamPodaci?preskakanje=' + preskakanje)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {
                 const slika = document.getElementById("trSlikaAlg");
                 if(slika)
                     slika.remove();
-                
+
                 const nazadBtn = document.getElementById('nazadBtn');
                 const naprijedBtn = document.getElementById('naprijedBtn');
 

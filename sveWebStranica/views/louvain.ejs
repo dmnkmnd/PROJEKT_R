@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GR/-\FF </title>
+
     <link rel="stylesheet" type="text/css"  href="/css/home.css">
     <link rel="stylesheet" type="text/css"  href="/css/header.css">
 </head>
@@ -11,8 +12,7 @@
     <%- include('partials/header') %>
     <br>
     <div class="opisAlgoritma">
-        <B>Betweenness centrality</B> je algoritam koji određuje mjeru koja procjenjuje koliko je određeni čvor u mreži ključan za usmjeravanje protoka između drugih čvorova. Temelji se na konceptu najkraćih puteva (shortest paths), tj. puteva s najmanjim brojem koraka ili najmanjim ukupnim troškom između dva čvora.<br><br>
-        Za svaki čvor u mreži, betweenness centrality se izračunava na temelju omjera broja najkraćih puteva koji prolaze kroz njega i ukupnog broja najkraćih puteva između svih parova čvorova u mreži.<br><br>
+        <B>Louvain metoda</B> je algoritam koji ....
     </div>
 
     <br>
@@ -28,12 +28,16 @@
             <div class="rezultatiSlikaDiv" id="rezultatiSlika">
                 <img id="trSlikaAlg">
             </div>
+            <div class="rezultatiGumbiDiv" id="rezultatiGumbi">
+                <button id="nazadBtn"><</button>
+                <button id="naprijedBtn">></button>
+            </div>
         </div>
     </div>
 
     <%- include('partials/footer') %>
 
-    <script src="/scripts/betweennessCentrality.js"></script>
+    <script src="/scripts/louvain.js"></script>
 
 </body>
 </html>

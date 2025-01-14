@@ -10,7 +10,8 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     e.preventDefault();
     document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
-    fetch('/viz/betweennessCentralityPodaci')
+    const iteracija = document.getElementById('iteracija').value;
+    fetch('/viz/HITSAlgoritamPodaci?iteracija=' + iteracija)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {

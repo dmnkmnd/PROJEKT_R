@@ -7,8 +7,8 @@ import networkx as nx
 import matplotlib.cm as cm
 import numpy as np
 
-def v_Tar (link):
-    graf = TarjanAlg(link)
+def v_Tar (jsonGRAF):
+    graf = TarjanAlg(jsonGRAF)
 
     # vizualizacija
     G = nx.DiGraph()  
@@ -23,6 +23,7 @@ def v_Tar (link):
     plt.figure(figsize=(8, 6))
     pos = nx.spring_layout(G)  
     nx.draw(G, pos, with_labels=True, node_color=boje, edge_color="black", font_weight='bold')
-    plt.show()
+    plt.savefig('public/slike/slika1.png')
+    plt.close()
 
-v_Tar("C:\\Users\domin\OneDrive\Desktop\graf.txt")
+#v_Tar("C:\\Users\domin\OneDrive\Desktop\graf.txt")

@@ -10,7 +10,7 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     e.preventDefault();
     document.getElementById('rezultati').style.display = 'none';
     fetch('/viz/obrisiSlike');
-    fetch('/viz/betweennessCentralityPodaci')
+    fetch('/viz/TarjanovAlgoritamPodaci')
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {
