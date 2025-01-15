@@ -9,30 +9,29 @@
 </head>
 <body>
     <%- include('partials/header') %>
-    <br>
-    <div class="opisAlgoritma">
-        <B>Betweenness centrality</B> je algoritam koji određuje mjeru koja procjenjuje koliko je određeni čvor u mreži ključan za usmjeravanje protoka između drugih čvorova. Temelji se na konceptu najkraćih puteva (shortest paths), tj. puteva s najmanjim brojem koraka ili najmanjim ukupnim troškom između dva čvora.<br><br>
-        Za svaki čvor u mreži, betweenness centrality se izračunava na temelju omjera broja najkraćih puteva koji prolaze kroz njega i ukupnog broja najkraćih puteva između svih parova čvorova u mreži.<br><br>
-    </div>
+    <div class = "sredina">
+        <br>
+        <div class="opisAlgoritma">
+            <B>Betweenness centrality</B> je algoritam koji određuje mjeru koja procjenjuje koliko je određeni čvor u mreži ključan za usmjeravanje protoka između drugih čvorova. Temelji se na konceptu najkraćih puteva (shortest paths), tj. puteva s najmanjim brojem koraka ili najmanjim ukupnim troškom između dva čvora.<br><br>
+            Za svaki čvor u mreži, betweenness centrality se izračunava na temelju omjera broja najkraćih puteva koji prolaze kroz njega i ukupnog broja najkraćih puteva između svih parova čvorova u mreži.<br><br>
+        </div>
+        <br>
 
-    <br>
+        <div class="forma">
+            <form id = "parametriForm">
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
 
-    <div class="forma">
-        <form id = "parametriForm">
-            <button type="submit"> Pokreni </button>
-        </form>
-    </div>
-
-    <div class="rezultatiDiv" id="rezultati">
-        <div class="centar">
-            <div class="rezultatiSlikaDiv" id="rezultatiSlika">
-                <img id="trSlikaAlg">
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
             </div>
         </div>
+        <%- include('partials/footer') %>
     </div>
-
-    <%- include('partials/footer') %>
-
     <script src="/scripts/betweennessCentrality.js"></script>
 
 </body>
