@@ -30,6 +30,7 @@ def vizualizirajZavrsniGraf(GRAF, vrhovi, B, udaljenost, brSlika):
         nx.draw_networkx_edges(GRAF, pos, edgelist=i, edge_color=boje[j % len(boje)], width=2.5)
         j += 1
         plt.savefig('public/slike/slika' + str(brSlika) + '.png')
+        brSlika += 1
         plt.close()
 
 def dobavi_najkrace_puteve(vrhovi, zavrsniCvor):

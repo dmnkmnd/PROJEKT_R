@@ -23,7 +23,7 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
     const cvorA = document.getElementById('cvorA').value;
     const cvorB = document.getElementById('cvorB').value;
     const preskakanje = document.getElementById('preskakanje').value;
-    fetch('/viz/dijametarPodaci?cvorA=' + cvorA + '&cvorB=' + cvorB + '&preskakanje=' + preskakanje)
+    fetch('/viz/dijkstrinAlgoritamPodaci?cvorA=' + cvorA + '&cvorB=' + cvorB + '&preskakanje=' + preskakanje)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {
@@ -77,6 +77,15 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
                 document.getElementById("rezultatiSlika").appendChild(img);
                 document.getElementById('nazadBtn').style.display = 'none';
                 document.getElementById('rezultati').style.display = 'flex';
+
+                if(data.rez != -1) {
+                    document.getElementById("porukaUdaljenost").style.color = 'black';
+                    document.getElementById("porukaUdaljenost").innerText = 'minimalna udaljenost od čvora ' + cvorA + ' do čvora ' + cvorB + ' je ' + data.rez;
+                }
+                else {
+                    document.getElementById("porukaUdaljenost").style.color = 'red';
+                    document.getElementById("porukaUdaljenost").innerText = 'iz čvora ' + cvorA + ' nije moguće posjetiti čvor ' + cvorB + ' (udaljenost: ∞)';
+                }
             }
     })
     .catch(err => console.error('Greška:', err));

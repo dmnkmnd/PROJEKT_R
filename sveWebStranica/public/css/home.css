@@ -73,6 +73,10 @@ img {
     align-items: center;
 }
 
+.porukaUdaljenostDiv {
+    margin: 10px;
+}
+
 .rezultatiSlikaDiv img {
     flex: 1;
     width: 100%;
@@ -80,6 +84,7 @@ img {
 }
 
 .rezultatiGumbiDiv {
+    font-weight: bolder;
     margin-top: 10px;
 }
 

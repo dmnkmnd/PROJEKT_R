@@ -7,7 +7,7 @@ def vizualizirajGraf(GRAF, betwCvorovi, brSlika):
     np.random.seed(seed)
     pos = nx.spring_layout(GRAF, k=0.1, seed=42)
     plt.figure(figsize=(14, 14))
-    velicine_cvorova = [100 + 7900 * betwCvorovi[c] for c in GRAF.nodes()]
+    velicine_cvorova = [85 + 4500 * betwCvorovi[c] for c in GRAF.nodes()]
     norm = plt.Normalize(vmin=min(betwCvorovi.values()), vmax=max(betwCvorovi.values()))
     boje = [cm.Blues(norm(betwCvorovi[c])) for c in GRAF.nodes()]
     plt.title('BETWEENNESS CENTRALITY', fontsize=15)

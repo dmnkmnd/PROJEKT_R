@@ -13,7 +13,7 @@
     <div class = "sredina">
         <br>
         <div class="opisAlgoritma">
-            <B>Dijametar</B> je algoritam koji računa najkraću udaljenost od početnog do završnog čvora. U našem slučaju udaljenosti povezanih čvorova su 1 jer algoritam u našem slučaju računa najkraći put od jednog do drugog korisnika u mreži. Pošto su udaljenosti 1 velika je mogućnost da ćemo imati više najkraćih udaljenosti (alternativne rute), pa vizualiziramo sve puteve s najkraćom udaljenosti. Također završni čvor može biti nedostižan pa i to prepoznajemo u programu(funkcija kao udaljenost vraća -1).<br><br>
+            <B>Dijkstrin algoritam</B> je algoritam koji računa najkraću udaljenost od početnog do završnog čvora. U našem slučaju udaljenosti povezanih čvorova su 1 jer algoritam u našem slučaju računa najkraći put od jednog do drugog korisnika u mreži. Pošto su udaljenosti 1 velika je mogućnost da ćemo imati više najkraćih udaljenosti (alternativne rute), pa vizualiziramo sve puteve s najkraćom udaljenosti. Također završni čvor može biti nedostižan pa i to prepoznajemo u programu(funkcija kao udaljenost vraća -1).<br><br>
             Moguće je i preskakati korake. Npr. možemo vizualizirati algoritam tako da prikazuje svaki peti korak.<br><br>
             Vodimo listu posjećenih i listu neposjećenih čvorova. U listi posjećenih je na početku samo početni čvor i njegova udaljenost je 0 dok su u listi neposjećenih čvorova svi ostali čvorovi sa udaljenošću beskonačno.<br><br>
             Odredimo sve susjedne čvorove početnog čvora i ažuriramo im udaljenosti (u listi neposjećenih).<br><br>
@@ -52,6 +52,7 @@
 
         <div class="rezultatiDiv" id="rezultati">
             <div class="centar">
+                <div class="porukaUdaljenostDiv" id="porukaUdaljenost"></div>
                 <div class="rezultatiSlikaDiv" id="rezultatiSlika">
                     <img id="trSlikaAlg">
                 </div>

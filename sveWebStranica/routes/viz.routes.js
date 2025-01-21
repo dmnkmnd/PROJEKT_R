@@ -129,6 +129,42 @@ router.get('/AdamecAdarIndexPodaci', function(req, res){
     });
 });
 
+// dijkstrin algoritam
+router.get('/dijkstrinAlgoritam', function (req, res, next) {
+    res.render('dijkstra', { graf: req.session.graf });
+});
+router.get('/dijkstrinAlgoritamPodaci', function (req, res) {
+    const cvorA = req.query.cvorA;
+    const cvorB = req.query.cvorB;
+    const preskakanje = req.query.preskakanje;
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/dijkstra/main.py');
+    const graf = JSON.stringify(req.session.graf);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf, cvorA, cvorB, preskakanje]);
+
+    let izlaz = '';
+    pythonProcess.stdout.on('data', (data) => {
+        izlaz += data.toString();
+    });
+
+
+    pythonProcess.on('close', (code) => {
+        if (code === 0) {
+            const rez = parseInt(izlaz, 10);
+            fs.readdir('public/slike', (err, files) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
+                } else {
+                    const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
+                    res.json({ brSlika, rez });
+                }
+            });
+        } else {
+            res.status(500).send({ message: 'Greška pri izvršavanju Python skripte.', code });
+        }
+    });
+});
+
 // dijametar
 router.get('/dijametar', function (req, res, next) {
     res.render('dijkstra', { graf: req.session.graf });

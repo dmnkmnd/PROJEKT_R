@@ -13,17 +13,17 @@
     <div class="sredina">
         <br>
         <div class="opisAlgoritma">
-            <B>Girvan-Newman algoritam</B> je algoritam koji na zadanom grafu računa betweenness centrality za svaki brid u grafu, te potom uklanja brid sa najvećom vrijednosti betweenness centrality. Algoritam radi dok se graf ne podijeli na onoliko potpuno povezanih grafova(zajednica) koliko je korisnik zadao.<br><br>
-            Na početku vizualiziramo graf nad kojim radimo. Te u svakom sljedećem koraku vizualiziramo novu zajednicu koju smo dobili(u različitim bojama), te bridove koje smo uklonili(crveno označeni).<br><br>
+            <B>Girvan-Newman algoritam</B> je algoritam koji na zadanom grafu računa betweenness centrality za svaki brid u grafu, te potom uklanja brid sa najvećom vrijednosti betweenness centrality. Algoritam radi dok se graf ne podijeli na minimalno onoliko potpuno povezanih grafova(zajednica) koliko je korisnik zadao.<br><br>
+            Na početku vizualiziramo graf nad kojim radimo. Te u svakom sljedećem koraku vizualiziramo novu/nove zajednicu/zajednice koju/koje smo dobili(u različitim bojama), te bridove koje smo uklonili(crveno označeni).<br><br>
             Na kraju se vizualizira graf sa označenim zajednicama(čvorovi istih boja pripadaju istim zajednicama).<br><br>
-            Za ovaj primjer je broj zajednica četiri i graf se vizualizira u svakom koraku, ali moguće je odabrati da se koraci preskaču(npr. vizualiziramo nove zajednice nakon što imamo dvije, tri, četiri… nove zajednice).<br><br>
+            Moguće je odabrati da se koraci preskaču(npr. vizualiziramo nove zajednice nakon što imamo dvije, tri, četiri… nove zajednice).<br><br>
         </div>
 
         <br>
 
         <div class="forma">
             <form id = "parametriForm">
-                <label for="brZajednica"> Br. zajednica: </label>
+                <label for="brZajednica"> Minimalni br. zajednica: </label>
                 <select name="brZajednica" id="brZajednica">
                     <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
                         <option value="<%= i %>"><%= i %></option>
