@@ -31,7 +31,7 @@ def graf_HITS (dataJSON, iteracija):
     node_colors = [cmap(value) for value in values]  
 
     # Crtaj graf
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=((2+len(graf)//10)*5,(2.2+len(graf)//10)*3))
     nx.spring_layout(G, k=0.8, scale=0.6)
     nx.draw( 
         G,

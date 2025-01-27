@@ -18,12 +18,12 @@ def v_AA(file, lokSlika):
     G.add_edges_from(podPar(graf))
 
     # Drawing
-    plt.figure(figsize=(8, 6))  # Size of the window in inches
-    pos = nx.spring_layout(G, k=0.8, scale=0.5)  # Layout for node positions
+    plt.figure(figsize=((2+len(graf)//10)*5,(2.2+len(graf)//10)*3))
+    pos = nx.spring_layout(G, k=0.8, scale=0.5)  
 
     nx.draw_networkx_nodes(G, pos, node_size=300)
     nx.draw_networkx_labels(G, pos, font_weight='bold')
-    nx.draw_networkx_edges(G, pos, edge_color='black', arrows=True, arrowsize=10)  # Increase arrowsize
+    nx.draw_networkx_edges(G, pos, edge_color='black', arrows=True, arrowsize=10)  
 
     plt.axis('off')
     plt.savefig(lokSlika, format="PNG")  # Spremanje slike kao PNG

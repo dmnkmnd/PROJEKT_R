@@ -108,3 +108,9 @@ img {
     margin: 0% 5%;
     place-items: center;
 }
+
+#trSlikaAlg {
+    width: 100%;  /* Širina slike zauzima 100% roditeljskog elementa */
+    height: 100%; /* Visina slike zauzima 100% roditeljskog elementa */
+    object-fit: contain; /* Zadržava proporcije slike unutar roditeljskih dimenzija */
+  }
