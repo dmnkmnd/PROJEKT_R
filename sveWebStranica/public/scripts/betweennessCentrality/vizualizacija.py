@@ -6,7 +6,7 @@ def vizualizirajGraf(GRAF, betwCvorovi, brSlika):
     random.seed(seed)
     np.random.seed(seed)
     pos = nx.spring_layout(GRAF, k=0.1, seed=42)
-    plt.figure(figsize=(14, 14))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3))
     velicine_cvorova = [85 + 4500 * betwCvorovi[c] for c in GRAF.nodes()]
     norm = plt.Normalize(vmin=min(betwCvorovi.values()), vmax=max(betwCvorovi.values()))
     boje = [cm.Blues(norm(betwCvorovi[c])) for c in GRAF.nodes()]

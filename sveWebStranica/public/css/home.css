@@ -108,6 +108,9 @@ img {
     margin: 0% 5%;
     place-items: center;
 }
+.nazivAlgoritma{
+    padding-bottom: 5px;
+}
 
 #trSlikaAlg {
     width: 100%;  /* Širina slike zauzima 100% roditeljskog elementa */

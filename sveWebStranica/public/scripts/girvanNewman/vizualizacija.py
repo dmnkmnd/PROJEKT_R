@@ -4,14 +4,14 @@ seed = 0
 boje = ['lightblue', 'green', 'orange', 'purple', 'pink', 'cyan', 'yellow', 'brown', 'magenta', 'lime']
 
 def vizualizirajPocetniGraf(GRAF, brSlika, pos):
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
     plt.title('POČETAK', fontsize=16, pad=20)
     nx.draw(GRAF, pos, with_labels=True, node_color='lightblue', edge_color='black', node_size=500, font_size=15, font_color="black")
     plt.savefig('public/slike/slika' + str(brSlika) + '.png')
     plt.close()
 
 def vizualizirajZavrsniGraf(GRAF, povezaniPodgrafovi, brSlika, pos):
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
     plt.title('KRAJ', fontsize=16, pad=20)
     bridovi = GRAF.edges()
     nx.draw(GRAF, pos, with_labels=True, node_color='lightblue', edge_color='red', node_size=500, font_size=15, font_color="black", edgelist=[])
@@ -26,7 +26,7 @@ def vizualizirajZavrsniGraf(GRAF, povezaniPodgrafovi, brSlika, pos):
     plt.close()
 
 def vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, jeZadnji, brSlika, pos):
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
     if(l % preskok == 0 and jeZadnji == False):
         plt.title('broj zajednica: ' + str(l), fontsize=16, pad=20)
     else:

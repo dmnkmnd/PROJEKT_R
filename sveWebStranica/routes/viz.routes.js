@@ -170,12 +170,9 @@ router.get('/dijametar', function (req, res, next) {
     res.render('dijametar', { graf: req.session.graf });
 });
 router.get('/dijametarPodaci', function (req, res) {
-    const cvorA = req.query.cvorA;
-    const cvorB = req.query.cvorB;
-    const preskakanje = req.query.preskakanje;
-    const pythonScriptPath = path.join(__dirname, '../public/scripts/dijkstra/main.py');
+    const pythonScriptPath = path.join(__dirname, '../public/scripts/dijametar/main.py');
     const graf = JSON.stringify(req.session.graf);
-    const pythonProcess = spawn('python', [pythonScriptPath, graf, cvorA, cvorB, preskakanje]);
+    const pythonProcess = spawn('python', [pythonScriptPath, graf]);
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             fs.readdir('public/slike', (err, files) => {
