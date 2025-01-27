@@ -16,14 +16,15 @@ def brid_za_uklanjanje(GRAF, povezaniPodgrafovi):
 
 def girvan_newman_alg(GRAF, brojZajednica, preskok):
     brSlika = 1
-    viz.vizualizirajPocetniGraf(GRAF, brSlika)
+    pos = nx.spring_layout(GRAF, k=0.1, seed=42)
+    viz.vizualizirajPocetniGraf(GRAF, brSlika, pos)
     brSlika += 1
     povezaniPodgrafovi = [GRAF.subgraph(c).copy() for c in nx.strongly_connected_components(GRAF)]
     k = 1
     l = len(povezaniPodgrafovi)
     if(l > k):
         if(l % preskok == 0):
-            viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, 0, brSlika)
+            viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, 0, brSlika, pos)
             brSlika += 1
             maxBridovi.clear()
         k = l
@@ -34,13 +35,13 @@ def girvan_newman_alg(GRAF, brojZajednica, preskok):
         if(l > k):
             if(l % preskok == 0):
                 jeZadnji = l == brojZajednica
-                viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, jeZadnji, brSlika)
+                viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, jeZadnji, brSlika, pos)
                 brSlika += 1
                 maxBridovi.clear()
             k = l
     if(l % preskok != 0):
-        viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, True, brSlika)
+        viz.vizualizirajGraf(GRAF, povezaniPodgrafovi, maxBridovi, l, preskok, True, brSlika, pos)
         brSlika += 1
         maxBridovi.clear()
-    viz.vizualizirajZavrsniGraf(GRAF, povezaniPodgrafovi, brSlika)
+    viz.vizualizirajZavrsniGraf(GRAF, povezaniPodgrafovi, brSlika, pos)
     return
