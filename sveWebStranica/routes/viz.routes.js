@@ -167,7 +167,7 @@ router.get('/dijkstrinAlgoritamPodaci', function (req, res) {
 
 // dijametar
 router.get('/dijametar', function (req, res, next) {
-    res.render('dijkstra', { graf: req.session.graf });
+    res.render('dijametar', { graf: req.session.graf });
 });
 router.get('/dijametarPodaci', function (req, res) {
     const cvorA = req.query.cvorA;

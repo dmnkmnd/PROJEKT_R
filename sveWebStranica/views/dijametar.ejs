@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GR/-\FF </title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/home.css">
+    <link rel="stylesheet" type="text/css"  href="/css/header.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class = "sredina">
+        <br>
+        <div class="opisAlgoritma">
+            <B>Dijametar</B> je algoritam koji ... <br><br>
+        </div>
+
+        <br>
+
+        <div class="forma">
+            <form id = "parametriForm">
+                <label for="cvorA"> Čvor A: </label>
+                <select name="cvorA" id="cvorA">
+                    <% Object.keys(graf).forEach(function(key) { %>
+                        <option value="<%= key %>"><%= key %></option>
+                    <% }); %>
+                </select>
+                <br><br>
+                <label for="cvorB"> Čvor B: </label>
+                <select name="cvorB" id="cvorB">
+                    <% Object.keys(graf).forEach(function(key) { %>
+                        <option value="<%= key %>"><%= key %></option>
+                    <% }); %>
+                </select>
+                <br><br>
+                <label for="preskakanje"> Preskakanje: </label>
+                <select name="preskakanje" id="preskakanje">
+                    <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% }; %>
+                </select>
+                <br><br>
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
+
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="porukaUdaljenostDiv" id="porukaUdaljenost"></div>
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
+                <div class="rezultatiGumbiDiv" id="rezultatiGumbi">
+                    <button id="nazadBtn"><</button>
+                    <button id="naprijedBtn">></button>
+                </div>
+            </div>
+        </div>
+
+        <%- include('partials/footer') %>
+    </div>
+    <script src="/scripts/dijametar.js"></script>
+
+</body>
+</html>
