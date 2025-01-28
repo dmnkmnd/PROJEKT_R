@@ -26,7 +26,7 @@ def graf_HITS (dataJSON, iteracija):
 
     # intenizet boje = hubovi
     values = podHub(graf)
-    values = [a*1.5 + 0.04 for a in values]
+    values = [a*1.35*((len(graf)//10)+1) + 0.06 for a in values]
     cmap = cm.get_cmap('Blues')  
     node_colors = [cmap(value) for value in values]  
 

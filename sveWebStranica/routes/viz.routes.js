@@ -29,7 +29,7 @@ router.get('/obrisiSlike', async (req, res) => {
 
 // Closeness Centrality
 router.get('/closenessCentrality', function(req, res, next){
-    res.render('closenessCentrality', { graf: req.session.graf });
+    res.render('closenessCentrality', { graf: req.session.graf, ime: req.session.ime});
 });
 router.get('/closenessCentralityPodaci', function (req, res) {
     const pythonScriptPath = path.join(__dirname, '../public/scripts/closenessCentrality/main.py');
@@ -54,7 +54,7 @@ router.get('/closenessCentralityPodaci', function (req, res) {
 
 // Betweenness centrality
 router.get('/betweennessCentrality', function(req, res, next){
-    res.render('betweennessCentrality', { graf: req.session.graf });
+    res.render('betweennessCentrality', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/betweennessCentralityPodaci', function (req, res) {
     const pythonScriptPath = path.join(__dirname, '../public/scripts/betweennessCentrality/main.py');
@@ -79,7 +79,7 @@ router.get('/betweennessCentralityPodaci', function (req, res) {
 
 // Tarjanov algoritam
 router.get('/TarjanovAlgoritam', function(req, res, next){
-    res.render('tarjan', { graf: req.session.graf });
+    res.render('tarjan', { graf: req.session.graf, ime: req.session.ime});
 });
 router.get('/TarjanovAlgoritamPodaci', function(req, res, next){
     const pythonScriptPath = path.join(__dirname, '../public/scripts/tarjan/main.py');
@@ -104,7 +104,7 @@ router.get('/TarjanovAlgoritamPodaci', function(req, res, next){
 
 // Adamec-Adar indeks
 router.get('/AdamecAdarIndex', function(req, res, next){
-    res.render('adamicAdar', { graf: req.session.graf });
+    res.render('adamicAdar', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/AdamecAdarIndexPodaci', function(req, res){
     const cvorA = req.query.cvorA;
@@ -131,7 +131,7 @@ router.get('/AdamecAdarIndexPodaci', function(req, res){
 
 // dijkstrin algoritam
 router.get('/dijkstrinAlgoritam', function (req, res, next) {
-    res.render('dijkstra', { graf: req.session.graf });
+    res.render('dijkstra', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/dijkstrinAlgoritamPodaci', function (req, res) {
     const cvorA = req.query.cvorA;
@@ -166,7 +166,7 @@ router.get('/dijkstrinAlgoritamPodaci', function (req, res) {
 
 // dijametar
 router.get('/dijametar', function (req, res, next) {
-    res.render('dijametar', { graf: req.session.graf });
+    res.render('dijametar', { graf: req.session.graf, ime: req.session.ime});
 });
 router.get('/dijametarPodaci', function (req, res) {
     const pythonScriptPath = path.join(__dirname, '../public/scripts/dijametar/main.py');
@@ -201,7 +201,7 @@ router.get('/dijametarPodaci', function (req, res) {
 
 // HITS algoritam
 router.get('/HITSAlgoritam', function(req, res, next){
-    res.render('hits', { graf: req.session.graf });
+    res.render('hits', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/HITSAlgoritamPodaci', function(req, res, next){
     const iteracija = req.query.iteracija;
@@ -227,7 +227,7 @@ router.get('/HITSAlgoritamPodaci', function(req, res, next){
 
 // PageRank
 router.get('/PageRankAlgoritam', function(req, res, next){
-    res.render('pageRank', { graf: req.session.graf });
+    res.render('pageRank', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/PageRankAlgoritamPodaci', function(req, res, next){
     const preskakanje = req.query.preskakanje;
@@ -253,7 +253,7 @@ router.get('/PageRankAlgoritamPodaci', function(req, res, next){
 
 // Louvain Method
 router.get('/LouvainMetoda', function(req, res, next){
-    res.render('louvain', { graf: req.session.graf });
+    res.render('louvain', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/LouvainMetodaPodaci', function(req, res, next){
     const pythonScriptPath = path.join(__dirname, '../public/scripts/louvain/main.py');
@@ -278,7 +278,7 @@ router.get('/LouvainMetodaPodaci', function(req, res, next){
 
 // Girvan-Newman Algoritam
 router.get('/GirvanNewmanAlgoritam', function(req, res, next){
-    res.render('girvanNewman', { graf: req.session.graf });
+    res.render('girvanNewman', { graf: req.session.graf, ime: req.session.ime });
 });
 router.get('/girvanNewmanPodaci', function (req, res) {
     const brZajednica = req.query.brZajednica;

@@ -61,6 +61,7 @@ router.get('/', async(req, res, next) => {
                 // Nakon što je Python skripta završila, šaljemo sliku kao putanju
                 res.render('home', {
                     graf: "/slike/graf.png",  // Putanja slike koja je generirana
+                    ime: req.session.ime, 
                     prikazi: JSON.stringify(uneseni)
                 });
             } else {
@@ -89,6 +90,7 @@ router.get('/', async(req, res, next) => {
 
         res.render('home', {
             graf: undefined,
+            ime: undefined, 
             prikazi: JSON.stringify(uneseni)
         });
     }
@@ -99,12 +101,14 @@ router.get('/', async(req, res, next) => {
 // promjena grafa koje se obrađuje
 router.post('/noviodobir', upload.single('file'), async (req, res, next) => {
     req.session.graf = undefined;
+    req.session.ime = undefined;
     res.redirect('/');
 });
 
 // promjena grafa koje se obrađuje
 router.get('/noviodobir', upload.single('file'), async (req, res, next) => {
     req.session.graf = undefined;
+    req.session.ime = undefined;
     res.redirect('/');
 });
 
@@ -128,6 +132,7 @@ router.post('/stariodobir', upload.single('file'), async (req, res, next) => {
     uneseni = uneseni.rows[0];
 
     req.session.graf = uneseni.data;
+    req.session.ime = uneseni.ime;
 
     res.redirect('/');
 });
@@ -135,6 +140,7 @@ router.post('/stariodobir', upload.single('file'), async (req, res, next) => {
 // dodavnje novog grafa kroz .txt
 router.post('/add/txt', upload.single('file'), async (req, res, next) => {
     const file = req.file;
+    const ime = req.body.nazivGrafa;
 
     if (!file) {
         return res.status(400).send('Nije uploadan niti jedan dokument.');
@@ -193,7 +199,7 @@ router.post('/add/txt', upload.single('file'), async (req, res, next) => {
                 }
 
                 // Dodavanje grafa u bazu
-                await client.query('INSERT INTO baza (data) VALUES ($1)', [graf]);
+                await client.query('INSERT INTO baza (data, ime) VALUES ($1, $2)', [graf, ime]);
             } finally {
                 client.release(); 
             }
@@ -204,6 +210,7 @@ router.post('/add/txt', upload.single('file'), async (req, res, next) => {
 
         // Graf spremljen u JSON
         req.session.graf = graf;
+        req.session.ime = ime;
         res.redirect('/');
 
     } catch (err) {
@@ -215,6 +222,7 @@ router.post('/add/txt', upload.single('file'), async (req, res, next) => {
 // dodavnje novog grafa kroz .json
 router.post('/add/json', upload.single('file'), async (req, res) => {
     const file = req.file;
+    const ime = req.body.nazivGrafa;
 
     if (!file) {
         return res.status(400).send('Nije uploadan niti jedan JSON dokument.');
@@ -232,7 +240,7 @@ router.post('/add/json', upload.single('file'), async (req, res) => {
 
             try {
 
-                await client.query('INSERT INTO baza (data) VALUES ($1)', [graf]);
+                await client.query('INSERT INTO baza (data, ime) VALUES ($1, $2)', [graf, ime]);
 
             } finally {
                 client.release(); 
@@ -247,6 +255,7 @@ router.post('/add/json', upload.single('file'), async (req, res) => {
 
         // Graf spremljen u JSON
         req.session.graf = graf;
+        req.session.ime = ime;
         res.redirect('/');
 
     } catch (error) {

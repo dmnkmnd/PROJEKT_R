@@ -15,7 +15,7 @@
 
         <% if (graf != undefined) { %>
             <div>
-                <B>Trenutno izabrani graf:</B>
+                <B>Trenutno izabrani graf:</B> <%= ime %>
                 <hr>
                 
                 <img src="<%= graf %>" alt="Graf"/>
@@ -32,6 +32,9 @@
                 <form action="/add/txt" method="POST" enctype="multipart/form-data" >
                     <input type="file" name="file" id="file" required>
                     <br>
+                    <lable> unesite naziv grafa </lable>
+                    <input type="text" name="nazivGrafa" id="nazivGrafa" required>
+                    <br>
                     <input class="gumb" type="submit" name="gumb" value="Podnesi"> 
                 </form>
             </div>
@@ -46,6 +49,9 @@
                 <form action="/add/json" method="POST" enctype="multipart/form-data" >
                     <input type="file" name="file" id="file" required>
                     <br>
+                    <lable> unesite naziv grafa </lable>
+                    <input type="text" name="nazivGrafa" id="nazivGrafa" required>
+                    <br>
                     <input class="gumb" type="submit" name="gumb" value="Podnesi"> 
                 </form>
             </div>
@@ -58,6 +64,9 @@
             <hr>
             <% uneseni.forEach(element => { %>
                 <div class="forma2">
+                    <B>Ime grafa: </B> <%= element.ime %>
+                    <br>
+
                     <B>JSON zapis : </B>
                     <% Object.keys(element.data).forEach(key => { %>
                         <%= key %> : <%= JSON.stringify(element.data[key]) %>, 
