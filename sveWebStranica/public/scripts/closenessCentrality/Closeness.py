@@ -23,9 +23,11 @@ def vizualiziraj_graf(graf):
     boje = [cm.Reds(norm(centralitet_bliskosti[cvor])) for cvor in graf.nodes()]
 
     # Prikaz grafa
-    fig, ax = plt.subplots(figsize=(14, 14))  # Stvaranje figure i osi
-    pozicija = nx.spring_layout(graf, seed=42)  # Pozicioniranje čvorova
+    # Prikaz grafa s dinamičkom veličinom
+    fig, ax = plt.subplots(figsize=((2+len(graf)//10)*5, (2.2+len(graf)//10)*3)) 
 
+    pozicija = nx.spring_layout(graf, seed=42)  # Pozicioniranje čvorova
+    
     # Crtanje grafa s usmjerenim bridovima (strelice)
     nx.draw_networkx(
         graf, pozicija,

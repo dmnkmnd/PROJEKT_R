@@ -21,7 +21,8 @@ def unos(g):
 
 def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None, brSlika=0):
     """Draw the graph with optional node coloring based on scores."""
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=((2 + len(G) // 10) * 5, (2.2 + len(G) // 10) * 3))
+
     pos = pos or nx.spring_layout(G, seed=42)
 
     if node_scores:
@@ -33,7 +34,8 @@ def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None, brSli
     else:
         nx.draw(G, pos, with_labels=True, node_size=500, font_size=10, font_weight="bold")
 
-    plt.savefig('public/slike/slika' + str(brSlika) + '.png')
+    plt.title(title, fontsize=16)
+    plt.savefig(f'public/slike/slika{brSlika}.png')
     plt.close()
 
 def visualize_pagerank_steps(G, alpha=0.85, max_iter=100, tol=1.0e-6, step_interval=5, brSlika=0):
@@ -41,25 +43,35 @@ def visualize_pagerank_steps(G, alpha=0.85, max_iter=100, tol=1.0e-6, step_inter
     pos = nx.spring_layout(G, seed=42)
     scores = {node: 1 / G.number_of_nodes() for node in G.nodes()}  # Initialize scores
 
+    step_titles = []  # To store titles for each step
+
     for iteration in range(max_iter):
         new_scores = {node: (1 - alpha) / G.number_of_nodes() for node in G.nodes()}
         for node in G:
             for neighbor in G[node]:
                 new_scores[neighbor] += alpha * (scores[node] / G.out_degree(node, weight=None))
 
-        # Convergence check
+        # Check for convergence
         diff = sum(abs(new_scores[n] - scores[n]) for n in G.nodes())
         scores = new_scores
 
-        # Visualize every `step_interval` steps
+        # Add title logic for steps
+        if iteration == 0:
+            title = "POČETAK"
+        elif diff < tol or iteration == max_iter - 1:
+            title = "KRAJ"
+        else:
+            title = f"KORAK: {iteration + 1}"
+
+        # Visualize and save graph
         if iteration % step_interval == 0 or diff < tol:
-            draw_graph(G, node_scores=scores, title=f"PageRank Step {iteration + 1}", pos=pos, brSlika=brSlika)
+            draw_graph(G, node_scores=scores, title=title, pos=pos, brSlika=brSlika)
             brSlika += 1
 
         if diff < tol:
             print(f"Converged after {iteration + 1} iterations.")
             break
-    
+
     return brSlika
 
 def calculate_and_visualize_pagerank(G, brSlika=0):

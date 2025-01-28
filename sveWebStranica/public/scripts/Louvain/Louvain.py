@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from community import community_louvain
+import numpy as np
 
 def unos(g):
     GRAF = nx.DiGraph()
@@ -11,7 +12,9 @@ def unos(g):
 
 def draw_graph(G, communities=None, title="Graph Visualization", pos=None, brSlika=0):
     """Draw the graph with optional community coloring."""
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=((2 + len(G)//10)*5, (2.2 + len(G)//10)*3))
+    pos = pos or nx.spring_layout(G, seed=42, k=0.15 / np.sqrt(len(G)))
+
     pos = pos or nx.spring_layout(G, seed=42)
     
     if communities:
@@ -27,11 +30,11 @@ def louvain_algorithm_steps(G):
     """Apply Louvain algorithm step by step and visualize each step."""
     pos = nx.spring_layout(G, seed=42)
 
-    # Step 1: Initial partitioning (each node is its own community)
+    # 1. korak: Svaki je čvor svoja zajednica
     initial_partition = {node: i for i, node in enumerate(G.nodes())}
     draw_graph(G, initial_partition, title="Initial Partition: Each Node in Its Own Community", pos=pos, brSlika=2)
 
-    # Louvain Method: Optimize modularity
+    # Louvain Metoda: Optimiziranje modularnosti
     partition = community_louvain.best_partition(G.to_undirected(), resolution=1.0)
     draw_graph(G, partition, title="Initial Louvain Partition", pos=pos, brSlika=3)
 
