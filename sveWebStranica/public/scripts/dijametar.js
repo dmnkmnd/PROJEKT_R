@@ -24,6 +24,9 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
         .then(response => response.json())
         .then(data => {
             if (data.brSlika > 0) {
+                
+                document.getElementById("rezultatiGumbi").style.display = 'flex';
+
                 const slika = document.getElementById("trSlikaAlg");
                 if(slika)
                     slika.remove();
@@ -74,6 +77,19 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
                 document.getElementById("rezultatiSlika").appendChild(img);
                 document.getElementById('nazadBtn').style.display = 'none';
                 document.getElementById('rezultati').style.display = 'flex';
+
+                if(data.strogoPovezani == 1) {
+                    document.getElementById("porukaUdaljenost").style.color = 'black';
+                    document.getElementById("porukaUdaljenost").innerText = 'dijametar grafa: ' + data.dijametar + '\ngraf je strogo povezan!';
+                }
+                else {
+                    document.getElementById("porukaUdaljenost").style.color = 'red';
+                    document.getElementById("porukaUdaljenost").innerText = 'dijametar grafa: ' + data.dijametar + '\ngraf nije strogo povezan! (uzimamo najveći podgraf zadanog grafa)';
+                }
+                if(data.brSlika == 1)
+                    document.getElementById("rezultatiGumbi").style.display = 'none';
+                else
+                    document.getElementById("rezultatiGumbi").style.display = 'flex';
             }
     })
     .catch(err => console.error('Greška:', err));

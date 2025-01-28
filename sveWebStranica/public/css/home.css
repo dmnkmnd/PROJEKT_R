@@ -73,8 +73,14 @@ img {
     align-items: center;
 }
 
+.nazivAlgoritma{
+    padding-bottom: 5px;
+    text-align: center;
+}
+
 .porukaUdaljenostDiv {
     margin: 10px;
+    text-align: center;
 }
 
 .rezultatiSlikaDiv img {
@@ -107,9 +113,6 @@ img {
 .sredina{
     margin: 0% 5%;
     place-items: center;
-}
-.nazivAlgoritma{
-    padding-bottom: 5px;
 }
 
 #trSlikaAlg {

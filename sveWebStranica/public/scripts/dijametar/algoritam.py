@@ -33,4 +33,4 @@ def dijametar_alg(GRAF):
 
     viz.vizualizirajGraf(GRAF, putevi, dijametar)
 
-    return strogoPovezani
+    return dijametar, strogoPovezani

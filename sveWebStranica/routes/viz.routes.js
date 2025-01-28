@@ -146,7 +146,6 @@ router.get('/dijkstrinAlgoritamPodaci', function (req, res) {
         izlaz += data.toString();
     });
 
-
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             const rez = parseInt(izlaz, 10);
@@ -173,15 +172,24 @@ router.get('/dijametarPodaci', function (req, res) {
     const pythonScriptPath = path.join(__dirname, '../public/scripts/dijametar/main.py');
     const graf = JSON.stringify(req.session.graf);
     const pythonProcess = spawn('python', [pythonScriptPath, graf]);
+
+    let izlaz = '';
+    pythonProcess.stdout.on('data', (data) => {
+        izlaz += data.toString();
+    });
+    
     pythonProcess.on('close', (code) => {
         if (code === 0) {
+            const dataIzlaz = JSON.parse(izlaz);
+            const dijametar = parseInt(dataIzlaz.dijametar, 10);
+            const strogoPovezani = parseInt(dataIzlaz.strogoPovezani, 10);
             fs.readdir('public/slike', (err, files) => {
                 if (err) {
                     console.error(err);
                     res.status(500).send({ message: 'Greška pri dohvaćanju slika.' });
                 } else {
                     const brSlika = files.filter(file => /^slika\d+\.png$/.test(file)).length;
-                    res.json({ brSlika });
+                    res.json({ brSlika, dijametar, strogoPovezani });
                 }
             });
         } else {
