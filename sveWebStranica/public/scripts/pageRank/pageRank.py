@@ -22,7 +22,7 @@ def unos(g):
 def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None, brSlika=0):
     """Draw the graph with optional node coloring based on scores."""
     plt.figure(figsize=((2 + len(G) // 10) * 5, (2.2 + len(G) // 10) * 3))
-
+    plt.title(title, fontsize=16)
     pos = pos or nx.spring_layout(G, seed=42)
 
     if node_scores:
@@ -34,7 +34,6 @@ def draw_graph(G, node_scores=None, title="Graph Visualization", pos=None, brSli
     else:
         nx.draw(G, pos, with_labels=True, node_size=500, font_size=10, font_weight="bold")
 
-    plt.title(title, fontsize=16)
     plt.savefig(f'public/slike/slika{brSlika}.png')
     plt.close()
 
