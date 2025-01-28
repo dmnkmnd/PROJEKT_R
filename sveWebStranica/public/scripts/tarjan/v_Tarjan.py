@@ -20,7 +20,7 @@ def v_Tar (jsonGRAF):
     uzorakBoje = plt.cm.get_cmap('viridis', max(grupe) + 1 ) 
 
     boje = [uzorakBoje(one) for one in grupe] 
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=((2+len(graf)//10)*5,(2.2+len(graf)//10)*3))
     pos = nx.spring_layout(G)  
     nx.draw(G, pos, with_labels=True, node_color=boje, edge_color="black", font_weight='bold')
     plt.savefig('public/slike/slika1.png')

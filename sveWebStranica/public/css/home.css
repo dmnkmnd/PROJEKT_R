@@ -73,6 +73,16 @@ img {
     align-items: center;
 }
 
+.nazivAlgoritma{
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.porukaUdaljenostDiv {
+    margin: 10px;
+    text-align: center;
+}
+
 .rezultatiSlikaDiv img {
     flex: 1;
     width: 100%;
@@ -80,6 +90,7 @@ img {
 }
 
 .rezultatiGumbiDiv {
+    font-weight: bolder;
     margin-top: 10px;
 }
 
@@ -103,3 +114,9 @@ img {
     margin: 0% 5%;
     place-items: center;
 }
+
+#trSlikaAlg {
+    width: 100%;  /* Širina slike zauzima 100% roditeljskog elementa */
+    height: 100%; /* Visina slike zauzima 100% roditeljskog elementa */
+    object-fit: contain; /* Zadržava proporcije slike unutar roditeljskih dimenzija */
+  }

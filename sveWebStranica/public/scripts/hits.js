@@ -25,6 +25,10 @@ document.getElementById('parametriForm').addEventListener('submit', function (e)
                 document.getElementById("rezultatiSlika").appendChild(img);
                 document.getElementById('rezultati').style.display = 'flex';
             }
+            
+            document.getElementById("nazivAlgoritma").style.color = 'black';
+            document.getElementById("nazivAlgoritma").innerText = 'HITS analiza';
+            
     })
     .catch(err => console.error('Greška:', err));
 });

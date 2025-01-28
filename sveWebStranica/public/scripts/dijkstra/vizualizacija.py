@@ -8,7 +8,7 @@ def vizualizirajPocetniGraf(GRAF, brSlika):
     random.seed(seed)
     np.random.seed(seed)
     pos = nx.spring_layout(GRAF, k=0.1, seed=42)
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
     plt.title('POČETAK', fontsize=16, pad=20)
     nx.draw(GRAF, pos, with_labels=True, node_color='blue', edge_color='black', node_size=500, font_size=15, font_color="black")
     plt.savefig('public/slike/slika' + str(brSlika) + '.png')
@@ -19,18 +19,32 @@ def vizualizirajZavrsniGraf(GRAF, vrhovi, B, udaljenost, brSlika):
     random.seed(seed)
     np.random.seed(seed)
     pos = nx.spring_layout(GRAF, k=0.1, seed=42)
-    bridovi = GRAF.edges()
-    najkraciPutevi = dobavi_najkrace_puteve(vrhovi, B)
-    j = 0
-    for i in najkraciPutevi:
-        plt.figure(figsize=(12, 12))
-        plt.title('KRAJ (put ' + str(j+1) + ' / '  + str(len(najkraciPutevi)) + '), udaljenost: ' + str(udaljenost), fontsize=16, pad=20)
-        nx.draw(GRAF, pos, with_labels=True, node_color='grey', edge_color='red', node_size=500, font_size=15, font_color="black", edgelist=[])
-        nx.draw_networkx_edges(GRAF, pos, edgelist=list(set(bridovi) - set(i)), edge_color='black', width=1.5)
-        nx.draw_networkx_edges(GRAF, pos, edgelist=i, edge_color=boje[j % len(boje)], width=2.5)
-        j += 1
+    if(udaljenost != -1):
+        bridovi = GRAF.edges()
+        najkraciPutevi = dobavi_najkrace_puteve(vrhovi, B)
+        j = 0
+        for i in najkraciPutevi:
+            plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3))
+            plt.title('KRAJ (put ' + str(j+1) + ' / '  + str(len(najkraciPutevi)) + '), udaljenost: ' + str(udaljenost), fontsize=16, pad=20)
+            nx.draw(GRAF, pos, with_labels=True, node_color='grey', edge_color='red', node_size=500, font_size=15, font_color="black", edgelist=[])
+            nx.draw_networkx_edges(GRAF, pos, edgelist=list(set(bridovi) - set(i)), edge_color='black', width=1.5)
+            nx.draw_networkx_edges(GRAF, pos, edgelist=i, edge_color=boje[j % len(boje)], width=2.5)
+            j += 1
+            plt.savefig('public/slike/slika' + str(brSlika) + '.png')
+            brSlika += 1
+            plt.close()
+    else:
+        plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
+        plt.title('KRAJ (nedostižan čvor)', fontsize=16, pad=20)
+        zeleni = []
+        for i in vrhovi:
+            zeleni.append(i.naziv)
+        nx.draw(GRAF, pos, with_labels=True, node_color='blue', edge_color='black', node_size=500, font_size=15, font_color="black")
+        nx.draw_networkx_nodes(GRAF, pos, nodelist=zeleni, node_color='green', node_size=500)
+        nx.draw_networkx_nodes(GRAF, pos, nodelist=list(set(GRAF.nodes()) - set(zeleni)), node_color='red', node_size=500)
         plt.savefig('public/slike/slika' + str(brSlika) + '.png')
         plt.close()
+    
 
 def dobavi_najkrace_puteve(vrhovi, zavrsniCvor):
     najkraciPutevi = set()
@@ -49,7 +63,7 @@ def vizualizirajGraf(GRAF, cvor, posjeceni, bridoviSad, korak, brSlika):
     random.seed(seed)
     np.random.seed(seed)
     pos = nx.spring_layout(GRAF, k=0.1, seed=42)
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=((2+len(GRAF)//10)*5,(2.2+len(GRAF)//10)*3)) 
     plt.title('korak: ' + str(korak), fontsize=16, pad=20)
     bridovi = list(set(GRAF.edges()) - set(bridoviSad))
     nx.draw(GRAF, pos, with_labels=True, node_color='blue', edge_color='black', node_size=500, font_size=15, font_color="black", edgelist=bridovi)

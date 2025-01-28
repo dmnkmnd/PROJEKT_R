@@ -16,7 +16,7 @@ def vizualiziraj_graf(graf):
     centralitet_bliskosti = nx.closeness_centrality(graf)
 
     # Postavljanje veličina čvorova s uravnoteženim faktorom skaliranja
-    velicine_cvorova = [50 + 1500 * centralitet_bliskosti[cvor] for cvor in graf.nodes()]
+    velicine_cvorova = [85 + 4500 * centralitet_bliskosti[cvor] for cvor in graf.nodes()]
 
     # Mapiranje boja tako da veći centralitet ima tamniju nijansu crvene
     norm = plt.Normalize(vmin=min(centralitet_bliskosti.values()), vmax=max(centralitet_bliskosti.values()))

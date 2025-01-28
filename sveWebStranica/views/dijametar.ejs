@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GR/-\FF </title>
+
+    <link rel="stylesheet" type="text/css"  href="/css/home.css">
+    <link rel="stylesheet" type="text/css"  href="/css/header.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class = "sredina">
+        <br>
+        <div class="opisAlgoritma">
+            <B>Dijametar grafa</B> je maksimalna udaljenost između bilo koja dva čvora u grafu,a definira se kao dužina najdužeg puta među najkraćim putevima između svih parova čvorova u grafu. <br><br>
+            Algoritam za svaki čvor u određuje najkraće udaljenosti do ostalih čvorova v, te pronalazi maksimalnu udaljenost od u do bilo kojeg drugog čvora v (ekscentričnost e). <br><br>
+            Algoritam za svaki čvor u određuje najkraće udaljenosti do ostalih čvorova v, te pronalazi maksimalnu udaljenost od u do bilo kojeg drugog čvora v (ekscentričnost e). <br><br>
+            <B>e(u) = max<sub>v&in;V</sub> dist(u,v)</B> <br> gdje je V skup svih vrhova grafa <br><br>
+            Dijametar D je maksimalna ekscentričnost svih čvorova. <br><br>
+            <B>D = max<sub>u&in;V</sub> e(u)</B> <br> gdje je V skup svih vrhova grafa <br><br>
+            Graf može, ali i ne mora biti strogo povezan. <br>
+            Strogo povezan -> dijametar definiran <br>
+            nije strogo povezan-> dijametar nije definiran. <br><br>
+            U ovoj implementaciji računamo dijametar, te crtamo sve putove koji imaju dužinu dijametra. <br>
+            Ako graf nije strogo povezan računamo dijametar na najvećem podgrafu koji je strogo povezan. <br><br>
+        </div>
+
+        <br>
+
+        <div class="forma">
+            <label > <b> Obrada grafa:  </b><%= ime %> </label>
+                <br><br>
+            <form id = "parametriForm">
+                <button type="submit"> Pokreni </button>
+            </form>
+        </div>
+
+        <div class="rezultatiDiv" id="rezultati">
+            <div class="centar">
+                <div class="nazivAlgoritma" id="nazivAlgoritma">Dijametar grafa</div>
+                <div class="porukaUdaljenostDiv" id="porukaUdaljenost"></div>
+                <div class="rezultatiSlikaDiv" id="rezultatiSlika">
+                    <img id="trSlikaAlg">
+                </div>
+                <div class="rezultatiGumbiDiv" id="rezultatiGumbi">
+                    <button id="nazadBtn"><</button>
+                    <button id="naprijedBtn">></button>
+                </div>
+            </div>
+        </div>
+
+        <%- include('partials/footer') %>
+    </div>
+    <script src="/scripts/dijametar.js"></script>
+
+</body>
+</html>

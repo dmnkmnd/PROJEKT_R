@@ -31,7 +31,7 @@ def v_AA (graf, cvorA, cvorB):
     doprinos = [a - 1 for a in doprinos]
 
     # Crtanje 
-    plt.figure(figsize=(8, 6)) # veličina u inčima prozora
+    plt.figure(figsize=((2+len(graf)//10)*5,(2.2+len(graf)//10)*3))
     pos = nx.spring_layout(G, k=0.8, scale=0.5)  # Layout za pozicije čvorova
 
     nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=800)

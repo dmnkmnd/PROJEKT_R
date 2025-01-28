@@ -23,6 +23,8 @@
 
         <div class="forma">
             <form id = "parametriForm">
+                <label > <b> Obrada grafa:  </b><%= ime %> </label>
+                <br><br>
                 <label for="preskakanje"> Preskakanje: </label>
                 <select name="preskakanje" id="preskakanje">
                     <% for(let i = 1; i <= Object.keys(graf).length; i++) { %>
@@ -36,6 +38,7 @@
 
         <div class="rezultatiDiv" id="rezultati">
             <div class="centar">
+                <div class="nazivAlgoritma" id="nazivAlgoritma">Page rank algoritam</div>
                 <div class="rezultatiSlikaDiv" id="rezultatiSlika">
                     <img id="trSlikaAlg">
                 </div>
